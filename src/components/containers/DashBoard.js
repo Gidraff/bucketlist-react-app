@@ -4,6 +4,7 @@ import { connect }          from 'react-redux';
 import Dialog               from 'material-ui/Dialog';
 import RaisedButton         from 'material-ui/RaisedButton';
 import FlatButton           from 'material-ui/FlatButton';
+import AlertContainer       from 'react-alert'
 import EditForm             from '../presentations/EditForm';
 import BucketLists          from '../presentations/BucketLists';
 import Items                from '../presentations/Items'
