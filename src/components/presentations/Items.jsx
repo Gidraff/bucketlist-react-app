@@ -19,6 +19,7 @@ const Items = (props) => {
   return (
     <div>
       <SingleItem
+        hideItems={props.hideItems}
         id={props.id}
         bucketItems={bucketItems}
         handleClick={props.handleClick}/>
