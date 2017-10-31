@@ -198,3 +198,15 @@ body {
 .item-button {
   margin: .8em;
 }
+
+
+.search-input {
+  color: black;
+  border: none;
+  border-radius: 3%;
+}
+
+.item-buttons {
+  text-anchor: none;
+  margin:.4em;
+}
