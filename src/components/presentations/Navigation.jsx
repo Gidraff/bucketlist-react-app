@@ -6,7 +6,14 @@ export const Navigation = (props) => {
     return (
       <nav className="link-containers clearfix">
         <ul className="navigation-list">
-          <li><p onClick={props.handleLogOut}>Logout</p></li>
+          <li>
+            <input 
+              className="search-input"  
+              type="text" 
+              placeholder="Search"
+              onChange={props.onSearchChange} 
+            /></li>
+          <li><a href="#"onClick={props.handleLogOut}>Logout</a></li>
         </ul>
       </nav>
     );
