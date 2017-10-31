@@ -70,3 +70,17 @@ export function deleteItem(bucket_id, id) {
     payload: instance.delete(`/bucketlists/${bucket_id}/items/${id}`)
   };
 }
+
+export function searchBucket(searchData) {
+  return {
+    type: "SEARCH_BUCKET",
+    payload: instance.get(`/bucketlists/?q=${searchData}` )
+  };
+}
+
+
+export function searchChange() {
+  return {
+    type: "SEARCH_CHANGE"
+  };
+}
