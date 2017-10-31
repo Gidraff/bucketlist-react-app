@@ -15,16 +15,7 @@ const EditItemForm = (props) => {
           placeholder="New Item Name"
           className="item-input"
         />
-        <Label for="description">Check me out</Label>
-        <Input
-          style={{ width: "100%" }}
-          name="status"
-          type="checkbox"
-          value={props.itemEditData.status}
-          onChange={props.onChange}
-          className="item-input"
-        />
-        <Input type="submit" className="btn-success submit-button" id="sub" value="EDIT" />
+        <Input type="submit" className="btn-success submit-button" id="sub" value="Save" />
       </FormGroup>
     </Form>
         
