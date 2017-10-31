@@ -43,7 +43,32 @@ class DashBoard  extends React.Component{
 
   componentDidMount(){
     this.props.getBuckets();
-    this.props.getItems(this.props.bucketListData.current_id);
+  }
+
+
+  alertOptions = {
+    offset: 14,
+    position: 'top left',
+    theme: 'dark',
+    time: 5000,
+    transition: 'scale'
+  }
+ 
+  showAlert = (error) => {
+    setTimeout(() => {
+      const { isCreateSuccess } = this.props.bucketListData;
+      if(isCreateSuccess) {
+        this.msg.show("BucketList was successfully created!", {
+          time: 2000,
+          type: 'success'
+        })
+      }else {
+        this.msg.show(error, {
+          time:2000,
+          type: 'error'
+        })
+      }
+    }, 2000)
   }
 
   onChange = (e) => {
@@ -60,14 +85,15 @@ class DashBoard  extends React.Component{
     this.setState(editData);
   };
 
-
   onSubmit = e => {
     e.preventDefault();
     const newBucket = {
     title: this.state.bucketData.title,
     description: this.state.bucketData.description
   }
+    const { error } = this.props.bucketListData;
     this.props.createBucket(newBucket);
+    this.showAlert(error);
 }
 
   onEditSubmit =  e => {
@@ -110,17 +136,21 @@ class DashBoard  extends React.Component{
       this.props.selectItemId(id)
     }
   }
-  
-
-    showItems = id => e => {
-      e.preventDefault();
-      this.setState({
-        showItems: true
-      })
-      this.props.selectId(id)
-      this.props.getItems(id);
-     
-    }
+  hideItems = (e) => {
+    e.preventDefault();
+    this.setState({
+      showItems: !this.state.showItems
+    })
+  }
+  showItems = id => e => {
+    e.preventDefault();
+    this.setState({
+      showItems: true
+    })
+    this.props.selectId(id)
+    this.props.getItems(id);
+    
+  }
    
 
     handleItemOnChange = (e) => {
@@ -225,6 +255,7 @@ class DashBoard  extends React.Component{
          <div className="item-view">
           <ItemsHeader  />
           <Items
+            hideItems={this.hideItems}
             id={this.props.bucketListData.current_id} 
             bucketListData={this.props.bucketListData}
             handleEdit={this.toggleEdit}
@@ -262,6 +293,7 @@ class DashBoard  extends React.Component{
     render(){
       return (
         <div className='dash-container'>
+          <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
           {this.state.showItems ? this.renderItems() : this.renderBuckets()}
         </div>
       )
