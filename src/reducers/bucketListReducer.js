@@ -4,6 +4,9 @@ export const initialState = {
   bucketResponse: "",
   bucketlists: [],
   items: [],
+  searchBuckets: [],
+  isSearch: false,
+  isCreateSuccess: false,
   loading: false,
   current_id: null,
   current_item_id: null,
@@ -18,17 +21,22 @@ export default (state = initialState, action) => {
     return {
       ...state,
       bucketlists: _.concat(state.bucketlists, action.payload.data),
+      isCreateSuccess: true
     };
 
   case "CREATE_BUCKET_PENDING":
     return {
-      ...state, loading: true,
+      ...state, 
+      loading: true,
+      error: null,
+      message:""
     };
 
   case "CREATE_BUCKET_REJECTED":
     return {
       ...state,
       error: action.payload.response.data.error,
+      isCreateSuccess: false
     };
 
   case "GET_BUCKETS_FULFILLED":
@@ -73,7 +81,27 @@ export default (state = initialState, action) => {
 
   case "DELETE_BUCKET_REJECTED":
     return {
-      ...state, error: action.payload.data.error,
+      ...state, error: action.payload.response.data.error,
+    };
+
+
+  case "SEARCH_BUCKET_FULFILLED":
+    return {
+      ...state, 
+      searchBuckets: action.payload.data.results,
+      isSearch: true
+    };
+
+  case "SEARCH_BUCKET_REJECTED":
+    return {
+      ...state,
+      isSearch: false
+    };
+
+  case "SEARCH_CHANGE":
+    return {
+      ...state,
+      isSearch: false
     };
 
 
