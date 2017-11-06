@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import Bucket from "./Bucket";
+import React, { Component } from 'react';
+import Bucket from './Bucket';
+import { Glyphicon } from 'react-bootstrap';
 
 
 const BucketList = (props) => {
@@ -9,8 +10,8 @@ const BucketList = (props) => {
   const listItems = bucketlists.map(bucket => (
     <div className="list-item" key={bucket.id}>
       <a href="#" onClick={props.showItems(bucket.id)} > {bucket.title} </a>
-      <button className="form-button" onClick={props.handleClick(bucket.id)}>Edit</button>
-      <button className="form-button" onClick={props.handleDeleteClick(bucket.id)}>Delete</button>
+      <Glyphicon glyph="trash" className="form-button" onClick={props.handleDeleteClick(bucket.id)} />
+      <Glyphicon glyph="pencil" className="form-button" onClick={props.handleClick(bucket.id)} />
     </div>
   ));
 
@@ -33,8 +34,9 @@ const BucketList = (props) => {
 
   return (
     <div className="list-container">
-      <h4 className="header-title">Bucket Lists</h4>
-      <Bucket listItems={props.bucketlistsData.isSearch ? searchItems : listItems } />
+      <h6 className="header-title">Bucket Lists</h6>
+      <Bucket 
+        listItems={props.bucketlistsData.isSearch ? searchItems : listItems } />
     </div>
 
   );
