@@ -1,3 +1,3 @@
 {
-    'preset': ['es2015', 'react']
+    "preset": ["react", "es2015"]
 }
