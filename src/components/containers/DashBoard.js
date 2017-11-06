@@ -5,6 +5,7 @@ import Dialog               from 'material-ui/Dialog';
 import RaisedButton         from 'material-ui/RaisedButton';
 import FlatButton           from 'material-ui/FlatButton';
 import AlertContainer       from 'react-alert'
+import Notifications, {notify} from 'react-notify-toast';
 import EditForm             from '../presentations/EditForm';
 import BucketLists          from '../presentations/BucketLists';
 import Items                from '../presentations/Items';
@@ -46,30 +47,6 @@ class DashBoard  extends Component{
   }
 
 
-  alertOptions = {
-    offset: 14,
-    position: 'top left',
-    theme: 'dark',
-    time: 5000,
-    transition: 'scale'
-  }
-
-  showAlert = (message, error) => {
-    setTimeout(() => {
-      if (this.props.bucketListData.isCreateSuccess) {
-        this.msg.show(message, {
-          time: 2000,
-          type: 'success'
-        })
-      }else if (!this.props.bucketListData.isCreateSuccess){
-        this.msg.show(error, {
-          time:2000,
-          type: 'error'
-        })
-      }
-    }, 2000)
-  }
-
   onChange = (e) => {
     e.preventDefault();
     const { bucketData } = this.state;
@@ -98,16 +75,10 @@ class DashBoard  extends Component{
         description: ''
       }
     })
-    const {bucketError} = this.props.bucketListData;
-    const {bucketMessage} = this.props.bucketListData;
-    console.log('bucket message', bucketMessage)
-    this.showAlert(bucketMessage,bucketError)
-
 }
 
   onEditSubmit =  e => {
     e.preventDefault();
-    let message = this.props.bucketListData.bucketMessage
     const bucketUpdate = {
       title: this.state.editData.title,
       description: this.state.editData.description
@@ -121,7 +92,6 @@ class DashBoard  extends Component{
         description: ''
       }
     });
-    this.showAlert(message)
   }
 
 
@@ -129,7 +99,6 @@ class DashBoard  extends Component{
     if(id) {
       this.props.deleteBucket(id);
     }
-    this.showAlert()
   }
 
 
@@ -182,7 +151,6 @@ class DashBoard  extends Component{
     }
     const { current_id } = this.props.bucketListData
     this.props.createItem(current_id, newItem)
-    this.showAlert()
   }
 
   handleItemEditOnChange = (e) => {
@@ -201,14 +169,12 @@ class DashBoard  extends Component{
       status: false
     }
     this.props.editItem(current_id, current_item_id, itemEditData)
-    this.showAlert()
   }
 
   handleItemDeleteClick = id => (e) => {
     e.preventDefault();
     const { current_id } = this.props.bucketListData;
     this.props.deleteItem(current_id, id);
-    this.showAlert()
   }
   
 
@@ -310,7 +276,7 @@ class DashBoard  extends Component{
     render(){
       return (
         <div className='dash-container'>
-          <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
+          <Notifications  options={{zIndex: 5000}}/>
           {this.state.showItems ? this.renderItems() : this.renderBuckets()}
         </div>
       )
