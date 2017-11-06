@@ -8,12 +8,11 @@ export const initialState = {
   showItems: false,
   isSearch: false,
   isCreateSuccess: false,
-  isEditSuccess: false,
-  isDeleteSuccess: false,
   isGetSuccess: false,
   loading: false,
   current_id: null,
   current_item_id: null,
+  bucketEditMessage: null,
   bucketError: null,
   bucketMessage: 'created successfully',
   bucketItemsError: null,
@@ -68,7 +67,7 @@ export default (state = initialState, action) => {
       ...state,
       bucketlists: _.unionBy([action.payload.data], state.bucketlists, 'id'),
       isEditSuccess: true,
-      bucketMessage: action.payload.data.message
+      bucketEditMessage: 'Changes Saved!'
     };
 
   case 'EDIT_BUCKET_PENDING':
