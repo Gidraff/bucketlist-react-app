@@ -3,12 +3,12 @@ import { Form, FormGroup, Label, Input } from "reactstrap";
 
 
 const LoginForm = props => (
-  <Form className="form-container" onSubmit={props.onSubmit}>
+  <Form className="form-container" onSubmit={props.onLoginSubmit}>
     <FormGroup className="form">
       <Label for="email" className="lab">Email</Label>
       <Input
         type="email"
-        onChange={props.onChange}
+        onChange={props.onLoginChange}
         name="email"
         className="username"
         value={props.loginData.email}
@@ -17,9 +17,9 @@ const LoginForm = props => (
       <Label for="password" className="lab">password</Label>
       <Input
         type="password"
-        onChange={props.onChange}
+        onChange={props.onLoginChange}
         name="password"
-        className="username"
+        className=''
         value={props.loginData.password}
         placeholder="Password"
       />
