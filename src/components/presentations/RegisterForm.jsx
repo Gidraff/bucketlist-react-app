@@ -3,15 +3,16 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 const RegisterForm = props => (
   <div>
-    <Form className="form-container" onSubmit={props.onSubmit}>
+    <Form className="form-container" onSubmit={props.onSignUpSubmit}>
       <FormGroup className="form">
         <h5 className="warning-header">{props.error}</h5>
+        <p><b>Enter you Credentials to Register</b></p>
         <Label for="exampleEmail" className="lab">Username</Label>
         <Input
           pattern=".{3,}"
           required
           type="text"
-          onChange={props.onChange}
+          onChange={props.onSignUpChange}
           name="username"
           className="username"
           value={props.signUpData.username}
@@ -21,7 +22,7 @@ const RegisterForm = props => (
         <Input
           type="email"
           required
-          onChange={props.onChange}
+          onChange={props.onSignUpChange}
           name="email"
           className="username"
           value={props.signUpData.email}
@@ -32,7 +33,7 @@ const RegisterForm = props => (
           pattern=".{7,20}"
           required
           type="password"
-          onChange={props.onChange}
+          onChange={props.onSignUpChange}
           name="password"
           className="username"
           value={props.signUpData.password}
@@ -43,7 +44,7 @@ const RegisterForm = props => (
           pattern=".{7,20}"
           required
           type="password"
-          onChange={props.onChange}
+          onChange={props.onSignUpChange}
           name="confirm"
           className="username"
           value={props.signUpData.confirm}
