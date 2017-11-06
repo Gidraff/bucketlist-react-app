@@ -1,29 +1,29 @@
-import React from "react";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import React from 'react';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 const LoginForm = props => (
-  <Form className="form-container" onSubmit={props.onLoginSubmit}>
-    <FormGroup className="form">
-      <Label for="email" className="lab">Email</Label>
+  <Form className='form-container' onSubmit={props.onLoginSubmit}>
+    <FormGroup className='form'>
+      <Label for='email' className='lab'>Email</Label>
       <Input
-        type="email"
+        type='email'
         onChange={props.onLoginChange}
-        name="email"
-        className="username"
+        name='email'
+        className='username'
         value={props.loginData.email}
-        placeholder="Enter you email"
+        placeholder='Enter you email'
       />
-      <Label for="password" className="lab">password</Label>
+      <Label for='password' className='lab'>password</Label>
       <Input
-        type="password"
+        type='password'
         onChange={props.onLoginChange}
-        name="password"
+        name='password'
         className=''
         value={props.loginData.password}
-        placeholder="Password"
+        placeholder='Password'
       />
-      <Input type="submit" className="btn-success submit-button" id="sub" value="Login" />
+      <Input type='submit' className='btn-success submit-button' id='sub' value='Login' />
     </FormGroup>
   </Form>
 );

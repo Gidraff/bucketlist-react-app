@@ -11,4 +11,4 @@ render(
     <Provider store={store}>
       <Routes />
     </Provider>
-  </MuiThemeProvider> , document.getElementById("root"));
+  </MuiThemeProvider> , document.getElementById('root'));
