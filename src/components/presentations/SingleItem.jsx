@@ -5,10 +5,10 @@ const SingleItem = (props) => {
     <div>
       <span>
         <span className="items-top-header">Items</span>
-        <a
+        <button
           onClick={props.handleClick(props.id)} 
-          className="pull-right btn-success item-buttons" href="">Add Item</a>
-        <a href="" onClick={this.hideItems} className="pull-right item-buttons">Back</a>
+          className="pull-right btn-success add-button" href="">Add Item</button>
+        <button onClick={props.hideItems} className="pull-right back-button">Go Back</button>
       </span>
       <div>{props.bucketItems}</div>
     </div>
