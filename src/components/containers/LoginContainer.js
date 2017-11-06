@@ -1,0 +1,71 @@
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import *  as actions from '../../actions/UserActions'
+import LoginForm from '../presentations/LoginForm';
+
+
+class LoginContainer extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginData: {
+        email: '',
+        password: ''
+      },
+      redirectToReferrer: false
+    }
+  }
+
+  onLoginChange = (e) => {
+    let { loginData } = this.state;
+    loginData[e.target.name] = e.target.value;
+    this.setState(loginData);
+  }
+
+  onLoginSubmit = (e) => {
+    e.preventDefault();
+    const loginDetails = {
+      email: this.state.loginData.email,
+      password: this.state.loginData.password
+    }
+    this.props.loginUser(loginDetails);
+    this.setState({
+      redirectToReferrer: true
+    })
+  }
+  
+  render(){
+    const { from } = this.props.location.state || { from: {pathname: "/dashboard"}}
+    const { redirectToReferrer } = this.state;
+
+    if(redirectToReferrer){
+      return(
+        <Redirect to={from} />
+      )
+    }
+    return(
+      <div>
+        <LoginForm
+          onLoginSubmit={this.onLoginSubmit}
+          onLoginChange={this.onLoginChange}
+          loginData={this.state.loginData}
+        />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        userDetails: state.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      loginUser: (loginDetails) => dispatch(actions.loginUser(loginDetails)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

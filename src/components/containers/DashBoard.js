@@ -7,14 +7,14 @@ import FlatButton           from 'material-ui/FlatButton';
 import AlertContainer       from 'react-alert'
 import EditForm             from '../presentations/EditForm';
 import BucketLists          from '../presentations/BucketLists';
-import Items                from '../presentations/Items'
-import ItemsHeader          from '../presentations/ItemsHeader';
+import Items                from '../presentations/Items';
 import CreateItemForm       from '../presentations/CreateItemForm';
 import EditItemForm         from '../presentations/EditItemForm'
 import  * as actions        from '../../actions/bucketListActions';
+import {logoutUser}         from '../../actions/UserActions'
 
 
-class DashBoard  extends React.Component{
+class DashBoard  extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class DashBoard  extends React.Component{
         description: ''
       },
       itemEditData: {
-        item: "",
+        item: '',
         status: false
       },
       bucketData: {
@@ -35,7 +35,7 @@ class DashBoard  extends React.Component{
         description: ''
       },
       itemData: {
-        item: "",
+        item: '',
         status: false
       }
     }
@@ -53,16 +53,15 @@ class DashBoard  extends React.Component{
     time: 5000,
     transition: 'scale'
   }
- 
-  showAlert = (error) => {
+
+  showAlert = (message, error) => {
     setTimeout(() => {
-      const { isCreateSuccess } = this.props.bucketListData;
-      if(isCreateSuccess) {
-        this.msg.show("BucketList was successfully created!", {
+      if (this.props.bucketListData.isCreateSuccess) {
+        this.msg.show(message, {
           time: 2000,
           type: 'success'
         })
-      }else {
+      }else if (!this.props.bucketListData.isCreateSuccess){
         this.msg.show(error, {
           time:2000,
           type: 'error'
@@ -93,11 +92,22 @@ class DashBoard  extends React.Component{
   }
     const { error } = this.props.bucketListData;
     this.props.createBucket(newBucket);
-    this.showAlert(error);
+    this.setState({
+      bucketData: {
+        title: '',
+        description: ''
+      }
+    })
+    const {bucketError} = this.props.bucketListData;
+    const {bucketMessage} = this.props.bucketListData;
+    console.log('bucket message', bucketMessage)
+    this.showAlert(bucketMessage,bucketError)
+
 }
 
   onEditSubmit =  e => {
     e.preventDefault();
+    let message = this.props.bucketListData.bucketMessage
     const bucketUpdate = {
       title: this.state.editData.title,
       description: this.state.editData.description
@@ -105,8 +115,13 @@ class DashBoard  extends React.Component{
     const { current_id } = this.props.bucketListData;
     this.props.editBucket(current_id, bucketUpdate)
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      editData: {
+        title: '',
+        description: ''
+      }
     });
+    this.showAlert(message)
   }
 
 
@@ -114,6 +129,7 @@ class DashBoard  extends React.Component{
     if(id) {
       this.props.deleteBucket(id);
     }
+    this.showAlert()
   }
 
 
@@ -145,150 +161,151 @@ class DashBoard  extends React.Component{
   showItems = id => e => {
     e.preventDefault();
     this.setState({
-      showItems: true
+      showItems: !this.state.showItems
     })
     this.props.selectId(id)
     this.props.getItems(id);
-    
   }
-   
 
-    handleItemOnChange = (e) => {
-      e.preventDefault();
-      const { itemData } = this.state;
-      itemData[e.target.name] = e.target.value;
-      this.setState(itemData)
+  handleItemOnChange = (e) => {
+    e.preventDefault();
+    const { itemData } = this.state;
+    itemData[e.target.name] = e.target.value;
+    this.setState(itemData)
+  }
+
+  handleItemSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      item: this.state.itemData.item,
+      status: false
     }
+    const { current_id } = this.props.bucketListData
+    this.props.createItem(current_id, newItem)
+    this.showAlert()
+  }
 
-    handleItemSubmit = (e) => {
-      e.preventDefault();
-      const newItem = {
-        item: this.state.itemData.item,
-        status: false
-      }
-      const { current_id } = this.props.bucketListData
-      this.props.createItem(current_id, newItem)
+  handleItemEditOnChange = (e) => {
+    e.preventDefault();
+    const { itemEditData } = this.state;
+    itemEditData[e.target.name] = e.target.value;
+    this.setState(itemEditData)
+  }
+
+  handleEditItemSubmit = (e) => {
+    e.preventDefault();
+    const { current_id } = this.props.bucketListData;
+    const { current_item_id } = this.props.bucketListData
+    const itemEditData = {
+      item: this.state.itemEditData.item,
+      status: false
     }
+    this.props.editItem(current_id, current_item_id, itemEditData)
+    this.showAlert()
+  }
 
-    handleItemEditOnChange = (e) => {
-      e.preventDefault();
-      const { itemEditData } = this.state;
-      itemEditData[e.target.name] = e.target.value;
-      this.setState(itemEditData)
-    }
+  handleItemDeleteClick = id => (e) => {
+    e.preventDefault();
+    const { current_id } = this.props.bucketListData;
+    this.props.deleteItem(current_id, id);
+    this.showAlert()
+  }
+  
 
-    handleEditItemSubmit = (e) => {
-      e.preventDefault();
-      const { current_id } = this.props.bucketListData;
-      const { current_item_id } = this.props.bucketListData
-      const itemEditData = { 
-       item: this.state.itemEditData.item,
-       status: false 
-      }
-      this.props.editItem(current_id, current_item_id, itemEditData)
-    }
 
-    handleItemDeleteClick = id => (e) => {
-      e.preventDefault();
-      const { current_id } = this.props.bucketListData;
-      this.props.deleteItem(current_id, id);
-    }
-    
-
-    renderBuckets(){
-      // This function renders Buckets
-      const actions = [
-        <FlatButton
-          label="Cancel"
-          primary={true}
-          onClick={this.toggle()}
+  renderBuckets(){
+    // This function renders Buckets
+    const actions = [
+      <FlatButton
+        label='Cancel'
+        primary={true}
+        onClick={this.toggle()}
+      />
+    ];
+    return (
+        <div>
+        <BucketListForm
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          bucketData={this.state.bucketData}
         />
-      ];
-      return (
-          <div>
-          <BucketListForm
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
-            bucketData={this.state.bucketData}
-          />
 
-          <BucketLists
-            bucketlistsData={this.props.bucketListData}
-            handleClick={this.toggle}
-            handleDeleteClick={this.handleDeleteClick}
-            showItems={this.showItems}
-          />
-          <div>
-            <Dialog
-              actions={actions}
-              modal={false}
-              open={this.state.modal}
-              onRequestClose={this.toggle}>
-              <EditForm
-                editData={this.state.editData}
-                onChange={this.onEditChange}
-                onSubmit={this.onEditSubmit}
-              />
-            </Dialog>
-          </div>
+        <BucketLists
+          bucketlistsData={this.props.bucketListData}
+          handleClick={this.toggle}
+          handleDeleteClick={this.handleDeleteClick}
+          showItems={this.showItems}
+        />
+        <div>
+          <Dialog
+            actions={actions}
+            modal={false}
+            open={this.state.modal}
+            onRequestClose={this.toggle}>
+            <EditForm
+              editData={this.state.editData}
+              onChange={this.onEditChange}
+              onSubmit={this.onEditSubmit}
+            />
+          </Dialog>
         </div>
-      )
-    }
+      </div>
+    )
+  }
 
-    renderItems(){
-      // This function renders items
-      const actions = [
-        <FlatButton
-          label="Cancel"
-          primary={true}
-          onClick={this.toggle()}
+  renderItems(){
+    // This function renders items
+    const actions = [
+      <FlatButton
+        label='Cancel'
+        primary={true}
+        onClick={this.toggle()}
+      />
+    ];
+    const actionsEdit = [
+      <FlatButton
+        label='Cancel'
+        primary={true}
+        onClick={this.toggleEdit()}
+      />
+    ];
+    return (
+        <div className='item-view'>
+        <Items
+          hideItems={this.hideItems}
+          id={this.props.bucketListData.current_id}
+          bucketListData={this.props.bucketListData}
+          handleEdit={this.toggleEdit}
+          handleClick={this.toggle}
+          handleDeleteClick={this.handleItemDeleteClick}
         />
-      ];
-      const actionsEdit = [
-        <FlatButton
-          label="Cancel"
-          primary={true}
-          onClick={this.toggleEdit()}
-        />
-      ];
-      return (
-         <div className="item-view">
-          <ItemsHeader  />
-          <Items
-            hideItems={this.hideItems}
-            id={this.props.bucketListData.current_id} 
-            bucketListData={this.props.bucketListData}
-            handleEdit={this.toggleEdit}
-            handleClick={this.toggle}
-            handleDeleteClick={this.handleItemDeleteClick}
-          />
-          <div>
-            <Dialog
-              actions={actions}
-              modal={false}
-              open={this.state.modal}
-              onRequestClose={this.toggle}>
-              <CreateItemForm 
-                itemData={this.state.itemData}
-                onChange={this.handleItemOnChange}
-                onSubmit={this.handleItemSubmit}
-              />
-            </Dialog>
+        <div>
+          <Dialog
+            actions={actions}
+            modal={false}
+            open={this.state.modal}
+            onRequestClose={this.toggle}>
+            <CreateItemForm
+              itemData={this.state.itemData}
+              onChange={this.handleItemOnChange}
+              onSubmit={this.handleItemSubmit}
+            />
+          </Dialog>
 
-            <Dialog
-              actions={actionsEdit}
-              modal={false}
-              open={this.state.editModal}
-              onRequestClose={this.toggleEdit}>
-              <EditItemForm
-                onChange={this.handleItemEditOnChange}
-                onSubmit={this.handleEditItemSubmit}
-                itemEditData={this.state.itemEditData}/>
-            </Dialog>
-          </div>
+          <Dialog
+            actions={actionsEdit}
+            modal={false}
+            open={this.state.editModal}
+            onRequestClose={this.toggleEdit}>
+            <EditItemForm
+              onChange={this.handleItemEditOnChange}
+              onSubmit={this.handleEditItemSubmit}
+              itemEditData={this.state.itemEditData}/>
+          </Dialog>
         </div>
-      )
-    }
+      </div>
+    )
+  }
 
     render(){
       return (
@@ -313,6 +330,7 @@ const mapDispactToProps = (dispatch) => {
     editBucket: (id, bucketUpdate) => dispatch(actions.editBucket(id, bucketUpdate)),
     selectId: (id) => dispatch(actions.selectId(id)),
     deleteBucket: (id) => dispatch(actions.deleteBucket(id)),
+    logoutUser: () => dispatch(logoutUser()),
     getItems: (id) => dispatch(actions.getItems(id)),
     createItem: (id, newItem) => dispatch(actions.createItem(id, newItem)),
     editItem: (bucket_id, id, itemEditData) => dispatch(actions.editItem(bucket_id, id, itemEditData)),
