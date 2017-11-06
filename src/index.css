@@ -98,6 +98,7 @@ body {
 
 .header-title {
   margin-left: 2em;
+  font-size: 20px;
 }
 
 .list-container {
@@ -121,8 +122,8 @@ body {
 }
 
 .dash-container {
-  display: inline-flex;
-  padding:0 2%;
+  display: inline-block;
+  padding:1% 2%;
   width: 100%;
   margin-top: 4%;
 }
@@ -159,6 +160,22 @@ body {
 .edit-button {
   text-decoration: none;
 }
+
+.add-button {
+  border-radius: 6px;
+  border: none;
+  margin-left: 2px;
+  outline: none;
+}
+
+.back-button {
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+
+
 
 #sub-one {
   width: 83.5%;
