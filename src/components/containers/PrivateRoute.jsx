@@ -2,9 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const  PrivateRoute = (props) => {
-  const { token, isRegistered, isLoggedIn } = props.userDetails;
-  const { component: Component, ...rest } = props;
+const  PrivateRoute = ({ component: Component, userDetails, ...rest}) => {
+  const { token, isRegistered, isLoggedIn } = userDetails;
   return (
     <Route
       {...rest}
