@@ -14,9 +14,12 @@ export const initialState = {
   current_item_id: null,
   bucketEditMessage: null,
   bucketError: null,
-  bucketMessage: 'created successfully',
+  bucketMessage: null,
   bucketItemsError: null,
-  bucketItemsMessage: null
+  bucketItemsMessage: null,
+  bucketDeleteMessage: null,
+  EditBucketItemsMessage: null,
+  DeleteBucketItemMessage: null
 };
 
 
@@ -26,8 +29,9 @@ export default (state = initialState, action) => {
     return {
       ...state,
       bucketlists: _.concat(state.bucketlists, action.payload.data),
-      bucketMessage: action.payload.data.message,
       isCreateSuccess: true,
+      bucketMessage: 'Successfully Created',
+      
     };
 
   case 'CREATE_BUCKET_PENDING':
@@ -39,8 +43,9 @@ export default (state = initialState, action) => {
   case 'CREATE_BUCKET_REJECTED':
     return {
       ...state,
-      bucketError: action.payload.response.data.error,
-      isCreateSuccess: false
+      isCreateSuccess: false,
+      bucketError: 'Invalid details.Please try again',
+      
     };
 
   case 'GET_BUCKETS_FULFILLED':
@@ -67,7 +72,7 @@ export default (state = initialState, action) => {
       ...state,
       bucketlists: _.unionBy([action.payload.data], state.bucketlists, 'id'),
       isEditSuccess: true,
-      bucketEditMessage: 'Changes Saved!'
+      bucketEditMessage: 'Changes saved'
     };
 
   case 'EDIT_BUCKET_PENDING':
@@ -80,7 +85,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       isEditSuccess: false,
-      bucketError: action.payload.response.data.error,
+      bucketEditError: action.payload.response.data.error,
     };
 
 
@@ -89,7 +94,7 @@ export default (state = initialState, action) => {
     const bucketlists = _.remove(state.bucketlists, bucket => bucket.id !== id);
     return { ...state, 
       bucketlists, 
-      bucketMessage: action.payload.data.message ,
+      bucketDeleteMessage: action.payload.data.message ,
       isDeleteSuccess: true}; }
 
   case 'DELETE_BUCKET_PENDING':
@@ -134,7 +139,7 @@ export default (state = initialState, action) => {
     return {
       ...state, 
       items: _.concat(state.items, action.payload.data),
-      bucketItemsMessage: action.payload.data.message
+      bucketItemsMessage: 'Item Successfully Added'
     };
 
   case 'CREATE_ITEM-_REJECTED':
@@ -153,7 +158,7 @@ export default (state = initialState, action) => {
       ...state,
       items: _.unionBy([action.payload.data], state.items, 'id'),
       isEditSuccess: true,
-      bucketItemsMessage: action.payload.data.message
+      EditBucketItemsMessage: 'Changes Saved'
     };
   case 'SHOW_ITEMS':
     return {
@@ -176,7 +181,9 @@ export default (state = initialState, action) => {
   case 'DELETE_ITEM_FULFILLED':{
     const { id } = action.payload.data;
     const items = _.remove(state.items, item => item.id !== id);
-    return {...state, items};
+    return {
+      ...state,
+      items, DeleteBucketItemMessage: 'Item was Successfully Deleted'};
   }
 
   case 'DELETE_ITEM_REJECTED':
