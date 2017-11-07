@@ -22,6 +22,12 @@ export function noMatch() {
   };
 }
 
+export function resetRedirectToReferrer(){
+  return {
+    type: 'RESET_REDIRECT_TO_REFERRER'
+  };
+}
+
 export function logoutUser() {
   return {
     type: 'LOGOUT_USER',
