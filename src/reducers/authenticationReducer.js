@@ -2,6 +2,7 @@ export const initialState = {
   token: null,
   isRegistered: false,
   isRegisterFailed: false,
+  redirectToReferrer: false,
   shouldRedirect: false,
   error: '',
   message: '',
@@ -38,6 +39,13 @@ export default (state = initialState, action) => {
       message: action.payload.data.message,
       token: action.payload.data.access_token,
     };
+
+  case 'RESET_REDIRECT_TO_REFERRER':
+    return {
+      ...state,
+      redirectToReferrer: true,
+    };
+  
   case 'LOGIN_USER_REJECTED':
     /* eslint-disable no-console */
     console.log('not authorized to login!!!', action);
