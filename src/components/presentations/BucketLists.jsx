@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Bucket from './Bucket';
 import { Glyphicon } from 'react-bootstrap';
 
@@ -15,14 +16,19 @@ const BucketList = (props) => {
     </div>
   ));
 
-  const searchItems = searchBuckets.map(bucket => (
+  const searchItems = searchBuckets && searchBuckets.length >= 1  ?  searchBuckets.map(bucket => (
     <div className="list-item" key={bucket.id}>
       <a href="#" onClick={props.showItems(bucket.id)} >{bucket.title}</a>
       <button className="form-button" onClick={props.handleClick(bucket.id)}>Edit</button>
       <button className="form-button" onClick={props.handleDeleteClick(bucket.id)}>Delete</button>
 
     </div>
-  ));
+  )): <div>
+    <p>
+      No matches found ;<br/>
+      Go back  <a href="/dashboard"> Home </a>
+    </p>
+  </div> ;
 
   if (listItems.length < 1) {
     return (
