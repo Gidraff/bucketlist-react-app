@@ -9,6 +9,8 @@ export const BucketListForm = props => (
         <Label for='title'>Title</Label>
         <Input
           name='title'
+          pattern=".{3,}"
+          required
           value={props.bucketData.title}
           onChange={props.onChange}
           placeholder='Enter Title'
