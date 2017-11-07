@@ -67,7 +67,6 @@ class DashBoard  extends Component{
     title: this.state.bucketData.title,
     description: this.state.bucketData.description
   }
-    const { error } = this.props.bucketListData;
     this.props.createBucket(newBucket);
     this.setState({
       bucketData: {
@@ -75,6 +74,17 @@ class DashBoard  extends Component{
         description: ''
       }
     })
+
+    if(this.props.bucketListData.isCreateSuccess){
+      const { bucketMessage } = this.props.bucketListData;
+      let myColor = {background: '#0E1717', text: '#FFFFFF'}
+      notify.show(bucketMessage, 'success', 5000, )
+    }else if(this.props.bucketListData.isCreateSuccess !== true ){
+      const { bucketError } = this.props.bucketListData;
+      let myColor = { background: "red", text: '#FFFFFF'}
+      notify.show(bucketError, "error", 5000)
+    }
+  
 }
 
   onEditSubmit =  e => {
@@ -92,6 +102,9 @@ class DashBoard  extends Component{
         description: ''
       }
     });
+    const { bucketEditMessage } = this.props.bucketListData;
+    let myColor = {background: 'red', text: '#FFFFFF'}
+    notify.show(bucketEditMessage, 'success', 5000, )
   }
 
 
@@ -99,6 +112,9 @@ class DashBoard  extends Component{
     if(id) {
       this.props.deleteBucket(id);
     }
+    const { bucketDeleteMessage } = this.props.bucketListData;
+    let myColor = {background: 'red', text: '#FFFFFF'}
+    notify.show(bucketDeleteMessage, 'warning', 5000, )
   }
 
 
@@ -151,6 +167,13 @@ class DashBoard  extends Component{
     }
     const { current_id } = this.props.bucketListData
     this.props.createItem(current_id, newItem)
+    const { bucketItemsMessage } = this.props.bucketListData;
+    let myColor = {background: 'red', text: '#FFFFFF'}
+    notify.show(bucketItemsMessage, 'success', 5000, )
+
+    this.setState({
+      modal: false
+    })
   }
 
   handleItemEditOnChange = (e) => {
@@ -169,12 +192,18 @@ class DashBoard  extends Component{
       status: false
     }
     this.props.editItem(current_id, current_item_id, itemEditData)
+    const { EditBucketItemsMessage } = this.props.bucketListData;
+    let myColor = {background: 'red', text: '#FFFFFF'}
+    notify.show(EditBucketItemsMessage, 'success', 5000, )
   }
 
   handleItemDeleteClick = id => (e) => {
     e.preventDefault();
     const { current_id } = this.props.bucketListData;
     this.props.deleteItem(current_id, id);
+    const { DeleteBucketItemMessage } = this.props.bucketListData;
+    let myColor = {background: 'red', text: '#FFFFFF'}
+    notify.show(DeleteBucketItemMessage, 'warning', 5000, )
   }
   
 
@@ -276,7 +305,7 @@ class DashBoard  extends Component{
     render(){
       return (
         <div className='dash-container'>
-          <Notifications  options={{zIndex: 5000}}/>
+          <Notifications  />
           {this.state.showItems ? this.renderItems() : this.renderBuckets()}
         </div>
       )
