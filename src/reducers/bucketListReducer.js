@@ -5,6 +5,8 @@ export const initialState = {
   bucketlists: [],
   items: [],
   searchBuckets: [],
+  searchItems: [],
+  isSearchItem: false,
   showItems: false,
   isSearch: false,
   isCreateSuccess: false,
@@ -115,6 +117,12 @@ export default (state = initialState, action) => {
       bucketMessage: action.payload.data.message,
     };
 
+  case 'SEARCH_BUCKET_ITEM_FULFILLED':
+    return {
+      ...state,
+      searchItems: action.payload.data
+    };
+
   case 'SEARCH_BUCKET_REJECTED':
     return {
       ...state,
@@ -164,6 +172,24 @@ export default (state = initialState, action) => {
     return {
       ...state,
       showItems: true
+    };
+  
+  case 'SET_SEARCH_ITEM':
+    return {
+      ...state,
+      isSearchItem: true
+    };
+
+  case 'DISABLE_SEARCH_ITEM':
+    return {
+      ...state,
+      isSearchItem: false
+    };
+
+  case 'DISABLE_SEARCH_BUCKET':
+    return {
+      ...state,
+      isSearch: false
     };
 
   case 'HIDE_ITEMS':
