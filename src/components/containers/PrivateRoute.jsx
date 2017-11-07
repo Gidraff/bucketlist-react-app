@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-function PrivateRoute(props) {
+const  PrivateRoute = (props) => {
   const { token, isRegistered, isLoggedIn } = props.userDetails;
   const { component: Component, ...rest } = props;
   return (
@@ -15,7 +15,7 @@ function PrivateRoute(props) {
       }
     />
   );
-}
+};
 
 function mapStateToProps(state) {
   /* subscribe to the store to receive props*/
