@@ -103,6 +103,23 @@ export function hideItems(){
     type: 'HIDE_ITEMS'
   };
 }
+export function disableIsSearchItem(){
+  return {
+    type: 'DISABLE_IS_SEARCH_ITEM'
+  };
+}
+
+export function disableIsSearch(){
+  return {
+    type: 'DISABLE_IS_SEARCH'
+  };
+}
+
+export function disableShowSearchItems(){
+  return {
+    type: 'DISABLE_SHOW_SEARCH_ITEMS'
+  };
+}
 
 export function setSearchItem(){
   return {
