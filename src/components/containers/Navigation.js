@@ -3,17 +3,27 @@ import { render } from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import *  as actions from '../../actions/UserActions'
-import  { clearState }from '../../actions/bucketListActions';
+import  { clearState, searchBucket, searchBucketItems }from '../../actions/bucketListActions';
 import { UnAuthenticatedNav, AuthenticatedNav } from "../presentations/Navs";
 
 
 class Navigation extends Component{
   constructor(props){
     super(props);
+    this.state = {
+      searchItemData: '',
+      searchBucketData: ''
+    }
   }
 
-  componentWillUnmount(){
-    this.props.clearState();
+  onSearchBucketChange = e => {
+    e.preventDefault();
+    this.props.searchBucket(e.target.value)
+  }
+  onSearchItemChange = e => {
+    e.preventDefault();
+    const { current_id } = this.props.bucketsData;
+    this.props.searchBucketItems(current_id, e.target.value)
   }
 
   handleLogout = (e) => {
@@ -26,7 +36,11 @@ class Navigation extends Component{
     return (
       <div>
         {this.props.userDetails.isLoggedIn  || this.props.userDetails.isRegistered ?  
-        <AuthenticatedNav handleLogout={this.handleLogout} /> :
+        <AuthenticatedNav 
+          onSearchBucketChange={this.onSearchBucketChange}
+          onSearchItemChange={this.onSearchItemChange}
+          handleLogout={this.handleLogout} 
+          bucketsData={this.props.bucketsData} /> :
          <UnAuthenticatedNav />}
       </div>
     );
@@ -35,14 +49,18 @@ class Navigation extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    userDetails: state.auth
+    userDetails: state.auth,
+    bucketsData: state.buckets
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => dispatch(actions.logoutUser()),
-    clearState: () => dispatch(clearState())
+    clearState: () => dispatch(clearState()),
+    searchBucket: (searchBucketData) => dispatch(searchBucket(searchBucketData)),
+    searchBucketItems: (id, searchItemData) => dispatch(searchBucketItems(id, searchItemData))
+
   };
 };
 
