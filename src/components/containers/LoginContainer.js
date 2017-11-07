@@ -12,8 +12,7 @@ class LoginContainer extends Component{
       loginData: {
         email: '',
         password: ''
-      },
-      redirectToReferrer: false
+      }
     }
   }
 
@@ -30,14 +29,12 @@ class LoginContainer extends Component{
       password: this.state.loginData.password
     }
     this.props.loginUser(loginDetails);
-    this.setState({
-      redirectToReferrer: true
-    })
+    this.props.resetRedirectToReferrer();
   }
   
   render(){
     const { from } = this.props.location.state || { from: {pathname: "/dashboard"}}
-    const { redirectToReferrer } = this.state;
+    const { redirectToReferrer } = this.props.userDetails;
 
     if(redirectToReferrer){
       return(
@@ -65,6 +62,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       loginUser: (loginDetails) => dispatch(actions.loginUser(loginDetails)),
+      resetRedirectToReferrer: () => dispatch(actions.resetRedirectToReferrer())
     }
 }
 
