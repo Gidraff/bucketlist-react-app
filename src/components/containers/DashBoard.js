@@ -142,6 +142,7 @@ class DashBoard  extends Component{
     this.setState({
       showItems: !this.state.showItems
     })
+    this.props.disableSearchItem();
   }
   showItems = id => e => {
     e.preventDefault();
@@ -150,6 +151,7 @@ class DashBoard  extends Component{
     })
     this.props.selectId(id)
     this.props.getItems(id);
+    this.props.setSearchItem();
   }
 
   handleItemOnChange = (e) => {
@@ -226,6 +228,7 @@ class DashBoard  extends Component{
         />
 
         <BucketLists
+          disableSearchBucket={this.props.disableSearchBucket}
           bucketlistsData={this.props.bucketListData}
           handleClick={this.toggle}
           handleDeleteClick={this.handleDeleteClick}
@@ -331,6 +334,9 @@ const mapDispactToProps = (dispatch) => {
     editItem: (bucket_id, id, itemEditData) => dispatch(actions.editItem(bucket_id, id, itemEditData)),
     selectItemId: (id) => dispatch(actions.selectItemId(id)),
     deleteItem: (bucket_id, id) => dispatch(actions.deleteItem(bucket_id, id)),
+    setSearchItem: () => dispatch(actions.setSearchItem()),
+    disableSearchItem: () => dispatch(actions.disableSearchItem()),
+    disableSearchBucket:() => dispatch(actions.disableSearchBucket())
   }
 }
 export default connect(mapStateToProps, mapDispactToProps)(DashBoard);
