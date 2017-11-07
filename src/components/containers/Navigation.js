@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import *  as actions from '../../actions/UserActions'
-import  { clearState, searchBucket, searchBucketItems }from '../../actions/bucketListActions';
-import { UnAuthenticatedNav, AuthenticatedNav } from "../presentations/Navs";
+import React, { Component }  from 'react';
+import { render }            from 'react-dom';
+import { Redirect }          from 'react-router-dom';
+import { connect }           from 'react-redux';
+import *  as actions         from '../../actions/UserActions'
+import  { clearState, 
+          searchBucket, 
+          searchBucketItems,
+          setSearchItem,
+          disableIsSearch,
+          disableIsSearchItem,
+          disableShowSearchItems }  from '../../actions/bucketListActions';
+import { UnAuthenticatedNav, 
+         AuthenticatedNav }     from "../presentations/Navs";
 
 
 class Navigation extends Component{
@@ -18,12 +25,21 @@ class Navigation extends Component{
 
   onSearchBucketChange = e => {
     e.preventDefault();
-    this.props.searchBucket(e.target.value)
+    if(e.target.value.length >= 1){
+      this.props.searchBucket(e.target.value)
+    }else {
+      this.props.disableIsSearch();
+    }
   }
   onSearchItemChange = e => {
     e.preventDefault();
-    const { current_id } = this.props.bucketsData;
-    this.props.searchBucketItems(current_id, e.target.value)
+    if(e.target.value.length >= 1){
+      const { current_id } = this.props.bucketsData;
+      this.props.searchBucketItems(current_id, e.target.value)
+    }else {
+      this.props.disableShowSearchItems();
+    }
+   
   }
 
   handleLogout = (e) => {
@@ -59,7 +75,11 @@ const mapDispatchToProps = (dispatch) => {
     logoutUser: () => dispatch(actions.logoutUser()),
     clearState: () => dispatch(clearState()),
     searchBucket: (searchBucketData) => dispatch(searchBucket(searchBucketData)),
-    searchBucketItems: (id, searchItemData) => dispatch(searchBucketItems(id, searchItemData))
+    searchBucketItems: (id, searchItemData) => dispatch(searchBucketItems(id, searchItemData)),
+    disableIsSearch: () => dispatch(disableIsSearch()),
+    disableIsSearchItem: () => dispatch(disableIsSearchItem()),
+    setSearchItem: () => dispatch(setSearchItem()),
+    disableShowSearchItems: () => dispatch(disableShowSearchItems())
 
   };
 };
