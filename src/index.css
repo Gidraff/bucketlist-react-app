@@ -227,3 +227,13 @@ body {
   text-anchor: none;
   margin:.4em;
 }
+
+
+/* search bar input */
+
+.search-bar {
+  border-radius: 6px;
+  border: none;
+  margin-top: 2px;
+  color: black;
+}
