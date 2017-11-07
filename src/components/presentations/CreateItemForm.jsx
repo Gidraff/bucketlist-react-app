@@ -9,20 +9,11 @@ const CreateItemForm = (props) => {
       <FormGroup >
         <Label for="title">New Item</Label>
         <Input
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           name="item"
           value={props.itemData.item}
           onChange={props.onChange}
           placeholder="Item Name"
-          className="item-input"
-        />
-        <Label for="description">Check me out</Label>
-        <Input
-          style={{ width: "100%" }}
-          name="status"
-          type="checkbox"
-          value={props.itemData.status}
-          onChange={props.onChange}
           className="item-input"
         />
         <Input type="submit" className="btn-success submit-button" id="sub" value="ADD" />
