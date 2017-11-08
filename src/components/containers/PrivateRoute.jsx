@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 const  PrivateRoute = ({ component: Component, userDetails, ...rest}) => {
   const { token, isRegistered, isLoggedIn } = userDetails;
+  console.log(userDetails);
   return (
     <Route
       {...rest}
@@ -16,10 +17,10 @@ const  PrivateRoute = ({ component: Component, userDetails, ...rest}) => {
   );
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   /* subscribe to the store to receive props*/
   return {
-    userDetails: state.auth,
+    userDetails: state.auth
   };
-}
+};
 export default connect(mapStateToProps)(PrivateRoute);
