@@ -46,7 +46,6 @@ class DashBoard  extends Component{
     this.props.getBuckets();
   }
 
-
   onChange = (e) => {
     e.preventDefault();
     const { bucketData } = this.state;
