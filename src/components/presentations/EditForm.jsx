@@ -7,7 +7,7 @@ const EditForm = props => (
     <FormGroup >
       <Label for="title">New Title</Label>
       <Input
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         name="title"
         value={props.editData.title}
         onChange={props.onChange}
