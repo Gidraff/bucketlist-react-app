@@ -72,6 +72,11 @@ body {
 
 /* form styling */
 
+.form-group {
+  width: 100%;
+  max-width: 100%;
+}
+
 .form-container {
   margin: 5em 32em 5em 32em;
 }
