@@ -4,13 +4,13 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 const LoginForm = props => (
   <Form className='form-container' onSubmit={props.onLoginSubmit}>
-    <FormGroup className='form'>
+    <FormGroup className='form-group'>
       <Label for='email' className='lab'>Email</Label>
       <Input
         type='email'
         onChange={props.onLoginChange}
         name='email'
-        className='username'
+        className='input-group'
         value={props.loginData.email}
         placeholder='Enter you email'
       />
