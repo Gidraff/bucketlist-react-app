@@ -10,5 +10,4 @@ const store = createStore(
   applyMiddleware(thunk, promiseMiddleware(), createLogger()),
   autoRehydrate()
 );
-persistStore(store);
 export default store;
