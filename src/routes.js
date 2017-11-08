@@ -7,8 +7,9 @@ import Navigation from './components/containers/Navigation';
 import Footer from './components/presentations/Footer';
 import PrivateRoute from './components/containers/PrivateRoute';
 
+
 const Routes =  () => (
-  <BrowserRouter>
+  <BrowserRouter >
     <div>
       <Navigation />
       <Route exact path='/' component={RegisterContainer} />
