@@ -17,7 +17,7 @@ const BucketList = (props) => {
 
   const searchItems = searchBuckets && searchBuckets.length >= 1  ?  searchBuckets.map(bucket => (
     <div className="list-item" key={bucket.id}>
-      <a href="#" onClick={props.showItems({ id :bucket.id, title:bucket.title})} >{bucket.title}</a>
+      <a href="#" onClick={props.showItems({ id :bucket.id, title:bucket.title, description:bucket.description})} >{bucket.title}</a>
       <Glyphicon  glyph="trash" className="form-button" onClick={props.handleDeleteClick(bucket.id)} />
       <Glyphicon  glyph="pencil" className="form-button" onClick={props.handleClick(bucket.id)} />
     </div>
