@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import rootReducer from '../reducers/index';
@@ -10,4 +10,5 @@ const store = createStore(
   applyMiddleware(thunk, promiseMiddleware(), createLogger()),
   autoRehydrate()
 );
+
 export default store;
