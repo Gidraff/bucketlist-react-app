@@ -125,7 +125,7 @@ class DashBoard  extends Component{
       modal: !this.state.modal
     });
     if(id) {
-      this.props.selectId(id)
+      // this.props.selectId(id)
     }
   }
 
@@ -135,7 +135,7 @@ class DashBoard  extends Component{
       editModal: !this.state.editModal
     });
     if(id) {
-      // this.props.selectItemId(id)
+      this.props.selectItemId(id)
     }
   }
   hideItems = (e) => {
@@ -150,6 +150,7 @@ class DashBoard  extends Component{
     this.setState({
       showItems: !this.state.showItems
     })
+    console.log(data.description, "Bucket details ===> ", data.title)
     this.props.selectId(data.id, data.title)
     this.props.getItems(data.id);
     this.props.setSearchItem();
