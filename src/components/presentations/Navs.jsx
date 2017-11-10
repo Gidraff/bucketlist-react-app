@@ -11,7 +11,7 @@ export const AuthenticatedNav = (props) => {
             onChange={props.bucketsData.isSearchItem ?
               props.onSearchItemChange : props.onSearchBucketChange}
             className="search-bar" placeholder="Search..."/></li>
-        <li><Link  onClick={props.handleLogout}to="/login">Logout</Link></li>
+        <li><Link  onClick={props.handleLogout} to="/login">Logout</Link></li>
       </ul>
     </nav>
   );
