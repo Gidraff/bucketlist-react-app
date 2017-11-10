@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 const  PrivateRoute = ({ component: Component, userDetails, ...rest}) => {
   const { token, isRegistered, isLoggedIn } = userDetails;
-  console.log(userDetails);
   return (
     <Route
       {...rest}
