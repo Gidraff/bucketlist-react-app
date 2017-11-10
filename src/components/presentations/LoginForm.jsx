@@ -7,6 +7,7 @@ const LoginForm = props => (
     <FormGroup className='form-group'>
       <Label for='email' className='lab'>Email</Label>
       <Input
+        required
         type='email'
         onChange={props.onLoginChange}
         name='email'
@@ -16,6 +17,7 @@ const LoginForm = props => (
       />
       <Label for='password' className='lab'>password</Label>
       <Input
+        required
         type='password'
         onChange={props.onLoginChange}
         name='password'
