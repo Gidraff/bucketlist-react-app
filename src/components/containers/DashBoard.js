@@ -40,6 +40,8 @@ class DashBoard  extends Component{
         status: false
       }
     }
+
+
   }
 
   componentDidMount(){
@@ -133,7 +135,7 @@ class DashBoard  extends Component{
       editModal: !this.state.editModal
     });
     if(id) {
-      this.props.selectItemId(id)
+      // this.props.selectItemId(id)
     }
   }
   hideItems = (e) => {
@@ -143,13 +145,13 @@ class DashBoard  extends Component{
     })
     this.props.disableSearchItem();
   }
-  showItems = id => e => {
+  showItems = data => e => {
     e.preventDefault();
     this.setState({
       showItems: !this.state.showItems
     })
-    this.props.selectId(id)
-    this.props.getItems(id);
+    this.props.selectId(data.id, data.title)
+    this.props.getItems(data.id);
     this.props.setSearchItem();
   }
 
@@ -206,7 +208,6 @@ class DashBoard  extends Component{
     let myColor = {background: 'red', text: '#FFFFFF'}
     notify.show(DeleteBucketItemMessage, 'warning', 5000, )
   }
-  
 
 
   renderBuckets(){
@@ -227,6 +228,7 @@ class DashBoard  extends Component{
         />
 
         <BucketLists
+          getBucketsPages={this.props.getBucketsPages}
           disableSearchBucket={this.props.disableSearchBucket}
           bucketlistsData={this.props.bucketListData}
           handleClick={this.toggle}
@@ -325,7 +327,7 @@ const mapDispactToProps = (dispatch) => {
     createBucket: (newBucket) => dispatch(actions.createBucket(newBucket)),
     getBuckets: () => dispatch(actions.getBuckets()),
     editBucket: (id, bucketUpdate) => dispatch(actions.editBucket(id, bucketUpdate)),
-    selectId: (id) => dispatch(actions.selectId(id)),
+    selectId: (id, title, description) => dispatch(actions.selectId(id, title, description)),
     deleteBucket: (id) => dispatch(actions.deleteBucket(id)),
     logoutUser: () => dispatch(logoutUser()),
     getItems: (id) => dispatch(actions.getItems(id)),
@@ -335,7 +337,8 @@ const mapDispactToProps = (dispatch) => {
     deleteItem: (bucket_id, id) => dispatch(actions.deleteItem(bucket_id, id)),
     setSearchItem: () => dispatch(actions.setSearchItem()),
     disableSearchItem: () => dispatch(actions.disableSearchItem()),
-    disableSearchBucket:() => dispatch(actions.disableSearchBucket())
+    disableSearchBucket:() => dispatch(actions.disableSearchBucket()),
+    getBucketsPages: (url) => dispatch(actions.getBucketsPages(url))
   }
 }
 export default connect(mapStateToProps, mapDispactToProps)(DashBoard);
