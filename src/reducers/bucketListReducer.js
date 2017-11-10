@@ -5,7 +5,12 @@ export const initialState = {
   bucketlists: [],
   items: [],
   searchBuckets: [],
+  currentBucketTitle: null,
+  currentBucketDescription: null,
   searchItems: [],
+  pages: null,
+  nextPage: null,
+  prevPage: null,
   isSearchItem: false,
   showItems: false,
   showSearchItem: false,
@@ -55,7 +60,20 @@ export default (state = initialState, action) => {
     return { 
       ...state, 
       bucketlists: action.payload.data.buckets ,
-      bucketItemsMessage: action.payload.data.message};
+      bucketItemsMessage: action.payload.data.message,
+      pages: action.payload.data.pages,
+      nextPage: action.payload.data.next_page,
+      prevPage: action.payload.data.prev_page
+    };
+
+  case 'GET_BUCKETS_PAGES_FULFILLED':
+    return {
+      ...state,
+      bucketlists: action.payload.data.buckets,
+      pages: action.payload.data.pages,
+      nextPage: action.payload.data.next_page,
+      prevPage: action.payload.data.prev_page
+    };
 
   case 'GET_BUCKETS_PENDING':
     return {
@@ -68,7 +86,10 @@ export default (state = initialState, action) => {
 
   case 'SELECT_ID':
     return {
-      ...state, current_id: action.payload};
+      ...state, 
+      current_id: action.payload.id,
+      currentBucketTitle: action.payload.title,
+      currentBucketDescription: action.payload.description };
 
   case 'EDIT_BUCKET_FULFILLED':
     return {
