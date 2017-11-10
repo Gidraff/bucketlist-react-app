@@ -15,6 +15,13 @@ export function getBuckets() {
   };
 }
 
+export function getBucketsPages(url) {
+  return {
+    type: 'GET_BUCKETS_PAGES',
+    payload: instance.get(`${url}`),
+  };
+}
+
 export function editBucket(id, { title, description }) {
   return {
     type: 'EDIT_BUCKET',
@@ -29,10 +36,14 @@ export function deleteBucket(id) {
   };
 }
 
-export function selectId(id) {
+export function selectId(id, title, description) {
   return {
     type: 'SELECT_ID',
-    payload: id
+    payload: {
+      id: id,
+      title: title,
+      description: description
+    }
   };
 }
 
