@@ -6,7 +6,7 @@ body {
   width: 100%;
   background-color: #ECEFF1;
   opacity: .5;
-  /* position: relative; */
+  position: relative;
   z-index:1 ;
 }
 
@@ -55,21 +55,6 @@ body {
 
 }
 
-
-/* content styling */
-
-
-.welcome-container {
-  text-align: center;
-  margin: 10em 15em 10em 15em;
-  background: #CFD8DC;
-  padding: 4em;
-  border-radius: 5px;
-  color: black;
-  opacity: 1;
-  /* width: 98%; */
-}
-
 /* form styling */
 
 .form-group {
@@ -108,9 +93,10 @@ body {
 
 .list-container {
   width: 70%;
-  padding: 0% 18% 0% 2%;
+  padding: 0% 18% 5% 2%;
   position: absolute;
   right: 0;
+  overflow: scroll;
 }
 
 .empty-container {
@@ -210,8 +196,7 @@ body {
 }
 
 .items-top-header {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 15px;
 }
 
 .item-buttons-container {
@@ -242,4 +227,46 @@ body {
   border: none;
   margin-top: 2px;
   color: black;
+}
+
+
+.pages-buttons {
+  float: right;
+}
+
+.pages-buttons > button {
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-size: 15px !important;
+  margin-left: 1px;
+}
+
+.prev-page {
+  background: rgba(3, 3, 31, 0.445);
+  opacity: .9;
+  color: whitesmoke;
+}
+
+.no-prev-page {
+  background: grey;
+  opacity: .7;
+  color: black;
+}
+
+
+.next-page {
+  background: rgba(3, 3, 31, 0.445);
+  opacity: .9;
+  color:whitesmoke;
+}
+
+.no-next-page {
+  background: rgba(3, 3, 31, 0.445);
+  opacity: .7;
+  color: black;
+}
+
+.description {
+  font-size: 15px;
 }
