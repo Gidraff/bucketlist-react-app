@@ -34,6 +34,8 @@ const Items = (props) => {
   return (
     <div>
       <SingleItem
+        bucketListData={props.bucketListData}
+        items={items}
         hideItems={props.hideItems}
         id={props.id}
         bucketItems={props.bucketListData.showSearchItem ? ItemsSearched : bucketItems}
