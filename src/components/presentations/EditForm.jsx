@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import React from 'react';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 const EditForm = props => (
   <Form className="" onSubmit={props.onSubmit}>
@@ -16,7 +16,7 @@ const EditForm = props => (
       />
       <Label for="description">New Description</Label>
       <Input
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         name="description"
         value={props.editData.description}
         onChange={props.onChange}
