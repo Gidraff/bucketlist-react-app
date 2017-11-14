@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+// requestAnimationFrame polyfill
+import 'raf/polyfill';
+
 import Routes from './routes';
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './store/configureStore';
 import { persistStore } from 'redux-persist';
+
 
 export default class AppProvider extends Component {
   constructor() {
@@ -41,6 +45,3 @@ export default class AppProvider extends Component {
 render(
   <AppProvider />, document.getElementById('root')
 );
-
-
-
