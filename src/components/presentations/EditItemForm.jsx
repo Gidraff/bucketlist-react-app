@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 const EditItemForm = (props) => {
@@ -8,7 +8,7 @@ const EditItemForm = (props) => {
       <FormGroup >
         <Label for="title">New Item Name</Label>
         <Input
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           name="item"
           value={props.itemEditData.item}
           onChange={props.onChange}
@@ -18,7 +18,7 @@ const EditItemForm = (props) => {
         <Input type="submit" className="btn-success submit-button" id="sub" value="Save" />
       </FormGroup>
     </Form>
-        
+
   );
 };
 
