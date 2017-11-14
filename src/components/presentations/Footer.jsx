@@ -1,13 +1,12 @@
 import React from 'react';
-
-import { Grid, Nav, NavItem } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className='footer'>
       <Grid>
-        <div className="text-center">
-                    &#169; Gidraff Karanja 2017
+        <div className='text-center'>
+            &#169; Gidraff Karanja 2017
         </div>
       </Grid>
     </footer>
