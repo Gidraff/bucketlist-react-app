@@ -5,7 +5,7 @@ import { Glyphicon } from 'react-bootstrap';
 const Items = (props) => {
   const { items, searchItems } = props.bucketListData;
 
-  const ItemsSearched = searchItems && searchItems.length >= 1 ? 
+  const ItemsSearched = searchItems && searchItems.length >= 1 ?
     searchItems.map(item => {
       return (
         <div className="item-container" key={item.id}>
