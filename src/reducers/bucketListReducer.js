@@ -39,12 +39,12 @@ export default (state = initialState, action) => {
       bucketlists: _.concat(state.bucketlists, action.payload.data),
       isCreateSuccess: true,
       bucketMessage: 'Successfully Created',
-      
+
     };
 
   case 'CREATE_BUCKET_PENDING':
     return {
-      ...state, 
+      ...state,
       loading: true,
     };
 
@@ -53,14 +53,14 @@ export default (state = initialState, action) => {
       ...state,
       isCreateSuccess: false,
       bucketError: 'Invalid details.Please try again',
-      
+
     };
 
   case 'GET_BUCKETS_FULFILLED':
-    return { 
-      ...state, 
+    return {
+      ...state,
       bucketlists: action.payload.data.buckets ,
-      bucketItemsMessage: action.payload.data.message,
+      bucketMessage: action.payload.data.message,
       pages: action.payload.data.pages,
       nextPage: action.payload.data.next_page,
       prevPage: action.payload.data.prev_page
@@ -81,12 +81,12 @@ export default (state = initialState, action) => {
 
   case 'GET_BUCKETS_REJECTED':
     return {
-      ...state, 
+      ...state,
       bucketError: action.payload.response.data.error,};
 
   case 'SELECT_ID':
     return {
-      ...state, 
+      ...state,
       current_id: action.payload.id,
       currentBucketTitle: action.payload.title,
       currentBucketDescription: action.payload.description };
@@ -95,29 +95,20 @@ export default (state = initialState, action) => {
     return {
       ...state,
       bucketlists: _.unionBy([action.payload.data], state.bucketlists, 'id'),
-      isEditSuccess: true,
       bucketEditMessage: 'Changes saved'
     };
 
   case 'EDIT_BUCKET_PENDING':
     return {
-      ...state, 
+      ...state,
       loading: true
     };
-
-  case 'EDIT_BUCKET_REJECTED':
-    return {
-      ...state,
-      isEditSuccess: false,
-      bucketEditError: action.payload.response.data.error,
-    };
-
 
   case 'DELETE_BUCKET_FULFILLED': {
     const { id } = action.payload.data;
     const bucketlists = _.remove(state.bucketlists, bucket => bucket.id !== id);
-    return { ...state, 
-      bucketlists, 
+    return { ...state,
+      bucketlists,
       bucketDeleteMessage: action.payload.data.message ,
       isDeleteSuccess: true}; }
 
@@ -126,19 +117,19 @@ export default (state = initialState, action) => {
 
   case 'DELETE_BUCKET_REJECTED':
     return {
-      ...state,  
+      ...state,
       isDeleteSuccess:false,
       bucketError: action.payload.response.data.error
     };
 
   case 'SEARCH_BUCKET_FULFILLED':
     return {
-      ...state, 
+      ...state,
       searchBuckets: action.payload.data.results,
       isSearch: true,
       bucketMessage: action.payload.data.message,
     };
-  
+
   case 'DISABLE_IS_SEARCH':
     return {
       ...state,
@@ -173,14 +164,14 @@ export default (state = initialState, action) => {
 
   case 'CREATE_ITEM_FULFILLED':
     return {
-      ...state, 
+      ...state,
       items: _.concat(state.items, action.payload.data),
       bucketItemsMessage: 'Item Successfully Added'
     };
 
   case 'CREATE_ITEM-_REJECTED':
     return {
-      ...state, 
+      ...state,
       bucketItemsError: action.payload.response.data.error
     };
 
@@ -201,7 +192,7 @@ export default (state = initialState, action) => {
       ...state,
       showItems: true
     };
-  
+
   case 'SET_SEARCH_ITEM':
     return {
       ...state,
@@ -213,7 +204,7 @@ export default (state = initialState, action) => {
       ...state,
       isSearchItem: false
     };
-    
+
   case 'DISABLE_SHOW_SEARCH_ITEMS':
     return {
       ...state,
@@ -233,9 +224,9 @@ export default (state = initialState, action) => {
 
   case 'EDIT_ITEM_REJECTED':
     return {
-      ...state, 
+      ...state,
       isEditSuccess: false,
-      bucketItemsError: action.payload.data.message
+      bucketItemsError: action.payload.response.data.error
     };
 
   case 'DELETE_ITEM_FULFILLED':{
@@ -249,7 +240,7 @@ export default (state = initialState, action) => {
   case 'DELETE_ITEM_REJECTED':
     return {
       ...state,
-      isDeleteSuccess:false, 
+      isDeleteSuccess:false,
       bucketItemsError: action.payload.response.data.error
     };
 
