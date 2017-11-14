@@ -4,10 +4,15 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "coveralls": "^3.0.0",
+    "enzyme": "^3.1.1",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "material-ui": "^0.19.4",
+    "raf": "^3.4.0",
     "react": "^16.0.0",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-transition-group": "^15.6.2",
     "react-alert": "^2.4.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
@@ -22,17 +27,19 @@
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.3.0",
     "redux-persist": "^4.10.1",
     "redux-persist-store": "^0.2.4",
     "redux-promise-middleware": "^4.4.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "sinon": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom --config=jest.config.js",
+    "eject": "react-scripts eject",
+    "cover": "npm test -- --coverage"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -41,8 +48,11 @@
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015": "6.18.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "chai": "^4.1.2",
+    "enzyme-adapter-react-16": "^1.0.4",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-friendly-formatter": "^3.0.0",
@@ -51,6 +61,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "mocha": "^4.0.1",
+    "moxios": "^0.4.0",
+    "react-test-renderer": "^16.1.0",
     "webpack": "^3.6.0"
   }
 }
