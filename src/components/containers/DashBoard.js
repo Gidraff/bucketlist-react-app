@@ -7,7 +7,7 @@ import FlatButton           from 'material-ui/FlatButton';
 import AlertContainer       from 'react-alert'
 import Notifications, {notify} from 'react-notify-toast';
 import EditForm             from '../presentations/EditForm';
-import BucketLists          from '../presentations/BucketLists';
+import BucketList         from '../presentations/BucketLists';
 import Items                from '../presentations/Items';
 import CreateItemForm       from '../presentations/CreateItemForm';
 import EditItemForm         from '../presentations/EditItemForm'
@@ -85,7 +85,7 @@ class DashBoard  extends Component{
       let myColor = { background: "red", text: '#FFFFFF'}
       notify.show(bucketError, "error", 5000)
     }
-  
+
 }
 
   onEditSubmit =  e => {
@@ -228,7 +228,7 @@ class DashBoard  extends Component{
           bucketData={this.state.bucketData}
         />
 
-        <BucketLists
+        <BucketList
           getBucketsPages={this.props.getBucketsPages}
           disableSearchBucket={this.props.disableSearchBucket}
           bucketlistsData={this.props.bucketListData}
