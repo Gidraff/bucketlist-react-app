@@ -19,7 +19,7 @@ const CreateItemForm = (props) => {
         <Input type="submit" className="btn-success submit-button" id="sub" value="ADD" />
       </FormGroup>
     </Form>
-    
+
   );
 };
 
