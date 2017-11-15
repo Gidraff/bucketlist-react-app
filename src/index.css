@@ -5,7 +5,7 @@ body {
   height: 100%;
   width: 100%;
   background-color: #ECEFF1;
-  opacity: .5;
+  opacity: .8;
   position: relative;
   z-index:1 ;
 }
@@ -126,7 +126,7 @@ body {
   position: fixed;
   padding: 1.3%;
   width: 100%;
-  
+
 }
 
 /* list */
@@ -269,4 +269,30 @@ body {
 
 .description {
   font-size: 15px;
+}
+
+.invalid-register {
+    border-color: red;
+}
+
+.login-header-text {
+    border-bottom: .5px solid black;
+    font-size: 18px;
+}
+
+.register-header-text {
+    border-bottom: .5px solid black;
+    font-size: 18px;
+}
+
+.form-header-text {
+    border-bottom: .4px solid black;
+}
+
+.item-size {
+    border-radius: 30px;
+    padding: px;
+    background-color: black;
+    color: white;
+    opacity: .6;
 }
