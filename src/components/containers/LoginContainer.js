@@ -31,7 +31,7 @@ class LoginContainer extends Component{
     this.props.loginUser(loginDetails);
     this.props.resetRedirectToReferrer();
   }
-  
+
   render(){
     const { from } = this.props.location.state || { from: {pathname: "/dashboard"}}
     const { redirectToReferrer } = this.props.userDetails;
