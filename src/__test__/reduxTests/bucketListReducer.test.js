@@ -38,6 +38,7 @@ describe('BucketList reducer', () => {
         data:{
           title: 'testBucketTitle',
           description: 'testBucketDescription',
+          message: 'Successfully Created'
         }
       }
     };
@@ -46,6 +47,7 @@ describe('BucketList reducer', () => {
       bucketlists: [
         {
           title: 'testBucketTitle',
+          message: 'Successfully Created',
           description: 'testBucketDescription',
         }
       ],
@@ -69,7 +71,8 @@ describe('BucketList reducer', () => {
       current_item_id: null,
       bucketEditMessage: null,
       bucketError: null,
-      bucketMessage: 'Successfully Created',
+      bucketCreateMessage: 'Successfully Created',
+      bucketMessage: null,
       bucketItemsError: null,
       bucketItemsMessage: null,
       bucketDeleteMessage: null,
@@ -93,6 +96,7 @@ describe('BucketList reducer', () => {
       items: [],
       searchBuckets: [],
       currentBucketTitle: null,
+      bucketCreateMessage: null,
       currentBucketDescription: null,
       searchItems: [],
       pages: null,
@@ -114,7 +118,9 @@ describe('BucketList reducer', () => {
       bucketItemsMessage: null,
       bucketDeleteMessage: null,
       EditBucketItemsMessage: null,
-      DeleteBucketItemMessage: null
+      DeleteBucketItemMessage: null,
+      createBucketStatus:null,
+      createConflictError:null
     };
 
     const newState = bucketListReducer(initialState, action);
@@ -321,7 +327,8 @@ describe('BucketList reducer', () => {
       payload: {
         data: {
           title: 'newTestTitle',
-          description: 'newTestDescription'
+          description: 'newTestDescription',
+          message: 'Changes saved'
         }
       }
     };
@@ -331,7 +338,8 @@ describe('BucketList reducer', () => {
       bucketlists: [
         {
           title: 'newTestTitle',
-          description: 'newTestDescription'
+          description: 'newTestDescription',
+          message: 'Changes saved',
         }
       ],
       items: [],
@@ -395,6 +403,7 @@ describe('BucketList reducer', () => {
       bucketItemsError: null,
       bucketItemsMessage: null,
       bucketDeleteMessage: null,
+      editBucketStatus: null,
       EditBucketItemsMessage: null,
       DeleteBucketItemMessage: null
     };
