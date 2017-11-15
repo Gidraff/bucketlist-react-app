@@ -1,11 +1,11 @@
 import axios from 'axios';
 import store from '../store/configureStore';
 
-const url = 'http://127.0.0.1:5000/';
+const url = 'https://real-bucketlist-api.herokuapp.com/';
 
 const instance = axios.create({
   baseURL: url,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     Accept: 'application/json',
     ContentType: 'application/json',
