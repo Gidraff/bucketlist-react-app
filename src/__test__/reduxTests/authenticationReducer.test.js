@@ -3,6 +3,7 @@ import authenticationReducer from '../../reducers/authenticationReducer';
 const initialState = {
   token: null,
   isRegistered: false,
+  loginStatus: null,
   isRegisterFailed: false,
   redirectToReferrer: false,
   shouldRedirect: false,
@@ -29,6 +30,7 @@ describe('Authentication reducer', () => {
       isRegistered: true,
       isRegisterFailed: false,
       redirectToReferrer: false,
+      loginStatus: null,
       shouldRedirect: false,
       error: '',
       message: 'mansnothot',
@@ -56,6 +58,7 @@ describe('Authentication reducer', () => {
       isRegistered: false,
       isRegisterFailed: false,
       redirectToReferrer: false,
+      loginStatus: null,
       shouldRedirect: false,
       message: 'registration failed',
       error: '',
@@ -73,8 +76,10 @@ describe('Authentication reducer', () => {
       payload: {
         data: {
           access_token: 'logintestlogin',
-          message: 'Successfully logged in'
-        }
+          message: 'Successfully logged in',
+        },
+        status: 200
+
       }
     };
     const expected = {
@@ -82,6 +87,7 @@ describe('Authentication reducer', () => {
       message: 'Successfully logged in',
       isRegistered: false,
       isRegisterFailed: false,
+      loginStatus: 200,
       redirectToReferrer: false,
       shouldRedirect: true,
       error: '',
@@ -101,6 +107,7 @@ describe('Authentication reducer', () => {
       token: null,
       isRegistered: false,
       isRegisterFailed: false,
+      loginStatus: null,
       redirectToReferrer: true,
       shouldRedirect: false,
       error: '',
@@ -125,6 +132,7 @@ describe('Authentication reducer', () => {
       isRegisterFailed: false,
       redirectToReferrer: false,
       shouldRedirect: false,
+      loginStatus: null,
       error: 'No match found',
       message: '',
       isAuthenticated: false,
