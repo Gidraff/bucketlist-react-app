@@ -9,6 +9,8 @@ const EditForm = props => (
       <Input
         style={{ width: '100%' }}
         name="title"
+        required
+        title='Invalid.'
         value={props.editData.title}
         onChange={props.onChange}
         placeholder="New Title"

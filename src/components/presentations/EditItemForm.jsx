@@ -10,6 +10,8 @@ const EditItemForm = (props) => {
         <Input
           style={{ width: '100%' }}
           name="item"
+          required
+          title='Invalid. You cannot replace item with empty input'
           value={props.itemEditData.item}
           onChange={props.onChange}
           placeholder="New Item Name"
