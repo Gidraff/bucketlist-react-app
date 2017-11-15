@@ -7,6 +7,12 @@ export const initialState = {
   searchBuckets: [],
   currentBucketTitle: null,
   currentBucketDescription: null,
+  createConflictError: null,
+  createBucketStatus: null,
+  deleteBucketStatus: null,
+  bucketCreateMessage: null,
+  bucketEditMessage: null,
+  editBucketStatus: null,
   searchItems: [],
   pages: null,
   nextPage: null,
@@ -17,13 +23,15 @@ export const initialState = {
   isSearch: false,
   isCreateSuccess: false,
   isGetSuccess: false,
+  currentBucketId: null,
   loading: false,
+  createBucketItemStatus:null,
   current_id: null,
   current_item_id: null,
-  bucketEditMessage: null,
   bucketError: null,
   bucketMessage: null,
   bucketItemsError: null,
+  deleteBucketItemStatus: null,
   bucketItemsMessage: null,
   bucketDeleteMessage: null,
   EditBucketItemsMessage: null,
@@ -38,14 +46,26 @@ export default (state = initialState, action) => {
       ...state,
       bucketlists: _.concat(state.bucketlists, action.payload.data),
       isCreateSuccess: true,
-      bucketMessage: 'Successfully Created',
+      bucketCreateMessage: action.payload.data.message,
 
+
+      createBucketStatus: action.payload.status
     };
 
   case 'CREATE_BUCKET_PENDING':
     return {
       ...state,
       loading: true,
+      DeleteBucketItemMessage:null,
+      EditBucketItemsMessage:null,
+      bucketCreateMessage:null,
+      bucketDeleteMessage:null,
+      bucketEditMessage:null,
+      bucketError:null,
+      bucketItemsError:null,
+      bucketItemsMessage:null,
+      createBucketStatus:null,
+      createConflictError:null
     };
 
   case 'CREATE_BUCKET_REJECTED':
@@ -53,7 +73,8 @@ export default (state = initialState, action) => {
       ...state,
       isCreateSuccess: false,
       bucketError: 'Invalid details.Please try again',
-
+      createConflictError: action.payload.response.data.error,
+      createBucketStatus: action.payload.response.status
     };
 
   case 'GET_BUCKETS_FULFILLED':
@@ -84,6 +105,12 @@ export default (state = initialState, action) => {
       ...state,
       bucketError: action.payload.response.data.error,};
 
+  case 'SELECT_CURRENT_BUCKET_ID':
+    return {
+      ...state,
+      currentBucketId: action.payload.id
+    };
+
   case 'SELECT_ID':
     return {
       ...state,
@@ -95,13 +122,16 @@ export default (state = initialState, action) => {
     return {
       ...state,
       bucketlists: _.unionBy([action.payload.data], state.bucketlists, 'id'),
-      bucketEditMessage: 'Changes saved'
+      bucketEditMessage: action.payload.data.message,
+      editBucketStatus: action.payload.status
     };
 
   case 'EDIT_BUCKET_PENDING':
     return {
       ...state,
-      loading: true
+      loading: true,
+      editBucketStatus: null,
+      bucketEditMessage: null
     };
 
   case 'DELETE_BUCKET_FULFILLED': {
@@ -110,7 +140,10 @@ export default (state = initialState, action) => {
     return { ...state,
       bucketlists,
       bucketDeleteMessage: action.payload.data.message ,
-      isDeleteSuccess: true}; }
+      isDeleteSuccess: true,
+      deleteBucketStatus: action.payload.status
+    };
+  }
 
   case 'DELETE_BUCKET_PENDING':
     return {...state, loading: true};
@@ -166,13 +199,27 @@ export default (state = initialState, action) => {
     return {
       ...state,
       items: _.concat(state.items, action.payload.data),
-      bucketItemsMessage: 'Item Successfully Added'
+      createBucketItemStatus: action.payload.status
+
     };
 
-  case 'CREATE_ITEM-_REJECTED':
+  case 'CREATE_ITEM_PENDING':
     return {
       ...state,
-      bucketItemsError: action.payload.response.data.error
+      loading: true,
+      bucketItemsError: null,
+      bucketItemsMessage: null,
+      createBucketItemStatus: null,
+    };
+
+  case 'CREATE_ITEM_REJECTED':
+    /* eslint-disable no-console */
+    console.log('status ==== code', action.payload.response.status);
+    /* eslint-enable no-console */
+    return {
+      ...state,
+      bucketItemsError: action.payload.response.data.error,
+      createBucketItemStatus: action.payload.response.status
     };
 
   case 'SELECT_ITEM_ID':
@@ -234,14 +281,27 @@ export default (state = initialState, action) => {
     const items = _.remove(state.items, item => item.id !== id);
     return {
       ...state,
-      items, DeleteBucketItemMessage: 'Item was Successfully Deleted'};
+      items,
+      DeleteBucketItemMessage: action.payload.data.message,
+      deleteBucketItemStatus: action.payload.status
+    };
   }
 
   case 'DELETE_ITEM_REJECTED':
     return {
       ...state,
       isDeleteSuccess:false,
-      bucketItemsError: action.payload.response.data.error
+      bucketItemsError: action.payload.response.data.error,
+      deleteBucketItemStatus: null
+
+    };
+  case 'DELETE_ITEM_PENDING':
+    return {
+      ...state,
+      loading: true,
+      bucketItemsError: null,
+      DeleteBucketItemMessage: null,
+      deleteBucketItemStatus: null
     };
 
   case 'CLEAR_STATE':
