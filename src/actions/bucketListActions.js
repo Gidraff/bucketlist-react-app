@@ -150,6 +150,13 @@ export function disableSearchBucket(){
   };
 }
 
+export function selectCurrentBucketId(id){
+  return {
+    type: 'SELECT_CURRENT_BUCKET_ID',
+    payload: id
+  };
+}
+
 export function clearState(){
   return {
     type: 'CLEAR_STATE'
