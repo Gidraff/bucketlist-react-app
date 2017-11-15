@@ -11,7 +11,10 @@ const BucketList = (props) => {
     <div className="list-item" key={bucket.id}>
       <a href="#" onClick={props.showItems({ id :bucket.id, title:bucket.title})} > {bucket.title} </a>
       <Glyphicon glyph="trash" className="form-button" onClick={props.handleDeleteClick(bucket.id)} />
-      <Glyphicon glyph="pencil" className="form-button" onClick={props.handleClick(bucket.id)} />
+      <Glyphicon
+        glyph="pencil"
+        className="form-button"
+        onClick={props.handleClick({id: bucket.id, title: bucket.title, description: bucket.id})} />
     </div>
   ));
 
@@ -19,7 +22,7 @@ const BucketList = (props) => {
     <div className="list-item" key={bucket.id}>
       <a href="#" onClick={props.showItems({ id :bucket.id, title:bucket.title, description:bucket.description})} >{bucket.title}</a>
       <Glyphicon  glyph="trash" className="form-button" onClick={props.handleDeleteClick(bucket.id)} />
-      <Glyphicon  glyph="pencil" className="form-button" onClick={props.handleClick(bucket.id)} />
+      <Glyphicon  glyph="pencil" className="form-button" onClick={props.handleClick({ id :bucket.id, title:bucket.title})} />
     </div>
   )): <div>It seems you have no bucket matching your search </div> ;
 
@@ -38,15 +41,15 @@ const BucketList = (props) => {
 
   return (
     <div className="list-container">
-      <h6 className="header-title">Bucket Lists
+      <h6 className="header-title header-text">Bucket Lists
         {props.bucketlistsData.pages > 1
           ?
           <span className="pages-buttons clearfix">
-            <button 
+            <button
               className={props.bucketlistsData.prevPage ? 'prev-page' : 'no-prev-page'}
               onClick={(e) => handlePages(props.bucketlistsData.prevPage, e)}
               disabled={
-                props.bucketlistsData.prevPage.length <= 1 
+                props.bucketlistsData.prevPage.length <= 1
                   ?
                   true
                   :
@@ -56,7 +59,7 @@ const BucketList = (props) => {
               className={props.bucketlistsData.nextPage ? 'next-page' : 'no-next-page'}
               onClick={(e) => handlePages(props.bucketlistsData.nextPage, e)}
               disabled={
-                props.bucketlistsData.nextPage.length <= 1 
+                props.bucketlistsData.nextPage.length <= 1
                   ?
                   true
                   :
@@ -66,7 +69,7 @@ const BucketList = (props) => {
           :
           null}
       </h6>
-      <Bucket 
+      <Bucket
         listItems={props.bucketlistsData.isSearch ? searchItems : listItems } />
     </div>
 
