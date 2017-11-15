@@ -5,6 +5,8 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 const LoginForm = props => (
   <Form className='form-container' onSubmit={props.onLoginSubmit}>
     <FormGroup className='form-group'>
+
+      <p className="login-header-text"><b>Enter your email and password to Login</b></p>
       <Label for='email' className='lab'>Email</Label>
       <Input
         required
