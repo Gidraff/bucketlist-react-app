@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Gidraff/bucketlist-react-app.svg?branch=ch-test)](https://travis-ci.org/Gidraff/bucketlist-react-app) [![Coverage Status](https://coveralls.io/repos/github/Gidraff/bucketlist-react-app/badge.svg?branch=ch-test)](https://coveralls.io/github/Gidraff/bucketlist-react-app?branch=ch-test)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c1e0a5dc74df4ce7ae7583e807567dee)](https://www.codacy.com/app/Gidraff/bucketlist-react-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Gidraff/bucketlist-react-app&amp;utm_campaign=Badge_Grade)
 
 BucketList React Front End:
 ------------------------------------------------
