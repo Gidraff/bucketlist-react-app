@@ -14,7 +14,6 @@ import EditItemForm         from '../presentations/EditItemForm'
 import  * as actions        from '../../actions/bucketListActions';
 import {logoutUser}         from '../../actions/UserActions'
 
-
 class DashBoard  extends Component{
   constructor(props){
     super(props);
@@ -87,9 +86,6 @@ class DashBoard  extends Component{
           console.log('>>>>>>>> Error message', createConflictError);
         }
     }, 1000);
-
-
-
 }
 
   onEditSubmit =  e => {
@@ -193,7 +189,6 @@ class DashBoard  extends Component{
     const { current_id } = this.props.bucketListData
     this.props.createItem(current_id, newItem)
     setTimeout(() => {
-
         if(this.props.bucketListData.createBucketItemStatus === 201){
             let message = 'Item was successfully created'
             let myColor = {background: 'green', text: '#FFFFFF'}
