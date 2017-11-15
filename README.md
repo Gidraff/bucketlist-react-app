@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Gidraff/bucketlist-react-app.svg?branch=ch-test)](https://travis-ci.org/Gidraff/bucketlist-react-app) [![Coverage Status](https://coveralls.io/repos/github/Gidraff/bucketlist-react-app/badge.svg?branch=ch-test)](https://coveralls.io/github/Gidraff/bucketlist-react-app?branch=ch-test)
+
 BucketList React Front End:
 ------------------------------------------------
 
