@@ -14,6 +14,7 @@ class RegisterContainer extends Component{
         password: '',
         confirm: ''
       },
+      invalidInput: false,
       redirectToReferrer: false
 
     }
@@ -27,6 +28,7 @@ class RegisterContainer extends Component{
 
   onSignUpSubmit = (event) => {
     event.preventDefault();
+    let input = document.getElementsByName('password')
     const {password, confirm} = this.state.signUpData;
     if ( password === confirm) {
       const user = {
