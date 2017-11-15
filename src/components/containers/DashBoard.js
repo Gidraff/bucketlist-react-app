@@ -75,16 +75,20 @@ class DashBoard  extends Component{
         description: ''
       }
     })
+    setTimeout(() => {
+        if(this.props.bucketListData.createBucketStatus === 201){
+          const { bucketCreateMessage } = this.props.bucketListData;
+          let myColor = {background: '#0E1717', text: '#FFFFFF'}
+          notify.show(bucketCreateMessage, 'success', 5000, )
+        }else if(this.props.bucketListData.createBucketStatus === 409 ){
+          const { createConflictError } = this.props.bucketListData;
+          let myColor = { background: "red", text: '#FFFFFF'}
+          notify.show(createConflictError, "error", 5000)
+          console.log('>>>>>>>> Error message', createConflictError);
+        }
+    }, 1000);
 
-    if(this.props.bucketListData.isCreateSuccess){
-      const { bucketMessage } = this.props.bucketListData;
-      let myColor = {background: '#0E1717', text: '#FFFFFF'}
-      notify.show(bucketMessage, 'success', 5000, )
-    }else if(this.props.bucketListData.isCreateSuccess !== true ){
-      const { bucketError } = this.props.bucketListData;
-      let myColor = { background: "red", text: '#FFFFFF'}
-      notify.show(bucketError, "error", 5000)
-    }
+
 
 }
 
@@ -103,9 +107,18 @@ class DashBoard  extends Component{
         description: ''
       }
     });
-    const { bucketEditMessage } = this.props.bucketListData;
-    let myColor = {background: 'red', text: '#FFFFFF'}
-    notify.show(bucketEditMessage, 'success', 5000, )
+    setTimeout(() => {
+        if(this.props.bucketListData.editBucketStatus === 200) {
+            let message = 'Changes successfully saved'
+            let myColor = {background: 'green', text: '#FFFFFF'}
+            notify.show(message, 'success', 5000, )
+        }else{
+            const  bucketEditError = 'Invalid bucket details'
+            let myColor = { background: 'red', text: '#FFFFFF' }
+            notify.show(bucketEditError, 'error', 5000)
+        }
+
+    }, 1000)
   }
 
 
@@ -113,19 +126,28 @@ class DashBoard  extends Component{
     if(id) {
       this.props.deleteBucket(id);
     }
-    const { bucketDeleteMessage } = this.props.bucketListData;
-    let myColor = {background: 'red', text: '#FFFFFF'}
-    notify.show(bucketDeleteMessage, 'warning', 5000, )
+
+    setTimeout(() =>{
+        if(this.props.bucketListData.deleteBucketStatus === 200){
+            const { bucketDeleteMessage } = this.props.bucketListData;
+            let myColor = {background: 'red', text: '#FFFFFF'}
+            notify.show(bucketDeleteMessage, 'warning', 5000, )
+        }else if(this.props.bucketListData.deleteBucketStatus === 409){
+            let myColor = {background: 'red', text: '#FFFFFF'}
+            notify.show(this.props.bucketListData.bucketDeleteMessage, )
+        }
+    }, 1000)
+
   }
 
 
-  toggle = id => e => {
+  toggle = data => e => {
     e.preventDefault();
     this.setState({
       modal: !this.state.modal
     });
-    if(id) {
-      // this.props.selectId(id)
+    if(data) {
+      this.props.selectId(data.id, data.title, data.description)
     }
   }
 
@@ -150,8 +172,7 @@ class DashBoard  extends Component{
     this.setState({
       showItems: !this.state.showItems
     })
-    console.log(data.description, "Bucket details ===> ", data.title)
-    this.props.selectId(data.id, data.title)
+    this.props.selectId(data.id, data.title, data.description)
     this.props.getItems(data.id);
     this.props.setSearchItem();
   }
@@ -171,13 +192,27 @@ class DashBoard  extends Component{
     }
     const { current_id } = this.props.bucketListData
     this.props.createItem(current_id, newItem)
-    const { bucketItemsMessage } = this.props.bucketListData;
-    let myColor = {background: 'red', text: '#FFFFFF'}
-    notify.show(bucketItemsMessage, 'success', 5000, )
+    setTimeout(() => {
 
+        if(this.props.bucketListData.createBucketItemStatus === 201){
+            let message = 'Item was successfully created'
+            let myColor = {background: 'green', text: '#FFFFFF'}
+            notify.show(message, 'success', 5000, )
+        }else if(this.props.bucketListData.createBucketItemStatus === 409){
+            console.log('Bucket Item error message ===>.', this.props.bucketListData.bucketItemsError);
+            const { bucketItemsError } = this.props.bucketListData;
+            let myColor = { background: 'red', text: '#FFFFFF'}
+            notify.show(bucketItemsError, 'error', 5000)
+        }else if(this.props.bucketListData.createBucketItemStatus === 500){
+            let message = 'Invalid.You are trying to add an Item that already exist in another Bucket'
+            let myColor = { background: 'red', text: '#FFFFFF'}
+            notify.show(message, 'error', 5000)
+        }
+    }, 1000)
     this.setState({
       modal: false
     })
+
   }
 
   handleItemEditOnChange = (e) => {
@@ -205,12 +240,15 @@ class DashBoard  extends Component{
     e.preventDefault();
     const { current_id } = this.props.bucketListData;
     this.props.deleteItem(current_id, id);
-    const { DeleteBucketItemMessage } = this.props.bucketListData;
-    let myColor = {background: 'red', text: '#FFFFFF'}
-    notify.show(DeleteBucketItemMessage, 'warning', 5000, )
+    setTimeout(() => {
+        if(this.props.bucketListData.deleteBucketItemStatus === 200){
+            const { DeleteBucketItemMessage } = this.props.bucketListData;
+            let myColor = {background: 'red', text: '#FFFFFF'}
+            notify.show(DeleteBucketItemMessage, 'warning', 5000, )
+        }
+    }, 1000)
+
   }
-
-
   renderBuckets(){
     // This function renders Buckets
     const actions = [
