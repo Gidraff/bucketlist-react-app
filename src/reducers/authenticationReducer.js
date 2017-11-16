@@ -55,7 +55,6 @@ export default (state = initialState, action) => {
     return {
       ...state,
       redirectToReferrer: false,
-      error: action.payload.response.data.message,
     };
 
   case 'LOGOUT_USER_FULFILLED':

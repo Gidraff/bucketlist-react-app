@@ -29,7 +29,10 @@ class LoginContainer extends Component{
       password: this.state.loginData.password
     }
     this.props.loginUser(loginDetails);
-    this.props.resetRedirectToReferrer();
+    if(this.props.userDetails.loginStatus === 200){
+        this.props.resetRedirectToReferrer();
+
+    }
   }
 
   render(){

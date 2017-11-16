@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store/configureStore';
 
-const url = 'https://real-bucketlist-api.herokuapp.com/';
+const url = 'https://real-bucketlist-api.herokuapp.com';
 
 const instance = axios.create({
   baseURL: url,
@@ -15,7 +15,7 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   const { token } = store.getState().auth;
   if (token) {
-    config.headers.authorization = `${token}`;
+    config.headers.Authorization = `${token}`;
   }
   config.headers['Access-Control-Allow-Origin'] = '*';
   return config;
