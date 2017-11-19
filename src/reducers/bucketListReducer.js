@@ -1,43 +1,5 @@
 import _ from 'lodash';
-
-export const initialState = {
-  bucketResponse: '',
-  bucketlists: [],
-  items: [],
-  searchBuckets: [],
-  currentBucketTitle: null,
-  currentBucketDescription: null,
-  createConflictError: null,
-  createBucketStatus: null,
-  deleteBucketStatus: null,
-  bucketCreateMessage: null,
-  bucketEditMessage: null,
-  editBucketStatus: null,
-  searchItems: [],
-  pages: null,
-  nextPage: null,
-  prevPage: null,
-  isSearchItem: false,
-  showItems: false,
-  showSearchItem: false,
-  isSearch: false,
-  isCreateSuccess: false,
-  isGetSuccess: false,
-  currentBucketId: null,
-  loading: false,
-  createBucketItemStatus:null,
-  current_id: null,
-  current_item_id: null,
-  bucketError: null,
-  bucketMessage: null,
-  bucketItemsError: null,
-  deleteBucketItemStatus: null,
-  bucketItemsMessage: null,
-  bucketDeleteMessage: null,
-  EditBucketItemsMessage: null,
-  DeleteBucketItemMessage: null
-};
-
+import initialState from './initialState';
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -47,8 +9,6 @@ export default (state = initialState, action) => {
       bucketlists: _.concat(state.bucketlists, action.payload.data),
       isCreateSuccess: true,
       bucketCreateMessage: action.payload.data.message,
-
-
       createBucketStatus: action.payload.status
     };
 
