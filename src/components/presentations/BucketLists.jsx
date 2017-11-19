@@ -38,7 +38,7 @@ const BucketList = (props) => {
     e.preventDefault();
     props.getBucketsPages(url);
   };
-
+  console.log();
   return (
     <div className="list-container">
       <h6 className="header-title header-text">Bucket Lists

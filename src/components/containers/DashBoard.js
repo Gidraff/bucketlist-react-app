@@ -43,7 +43,7 @@ class DashBoard  extends Component{
 
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.getBuckets();
   }
 
@@ -64,9 +64,10 @@ class DashBoard  extends Component{
   onSubmit = e => {
     e.preventDefault();
     const newBucket = {
-    title: this.state.bucketData.title,
-    description: this.state.bucketData.description
+      title: this.state.bucketData.title,
+      description: this.state.bucketData.description
   }
+    this.props.getBuckets();
     this.props.createBucket(newBucket);
     this.setState({
       bucketData: {
@@ -83,7 +84,6 @@ class DashBoard  extends Component{
           const { createConflictError } = this.props.bucketListData;
           let myColor = { background: "red", text: '#FFFFFF'}
           notify.show(createConflictError, "error", 5000)
-          console.log('>>>>>>>> Error message', createConflictError);
         }
     }, 1000);
 }
@@ -122,7 +122,9 @@ class DashBoard  extends Component{
     if(id) {
       this.props.deleteBucket(id);
     }
-
+    if(this.props.bucketListData.bucketlists.length < 10) {
+        this.props.getBuckets();
+    }
     setTimeout(() =>{
         if(this.props.bucketListData.deleteBucketStatus === 200){
             const { bucketDeleteMessage } = this.props.bucketListData;

@@ -8,10 +8,10 @@ export function createBucket({ title, description }) {
   };
 }
 
-export function getBuckets() {
+export function getBuckets(limit=3, page=1) {
   return {
     type: 'GET_BUCKETS',
-    payload: instance.get('bucketlists/'),
+    payload: instance.get('bucketlists/?limit=${limit}&page=${page}'),
   };
 }
 

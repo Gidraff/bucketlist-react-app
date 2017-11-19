@@ -6,10 +6,12 @@ const SingleItem = (props) => {
     <div>
       <span>
         <span className='items-top-header'>
-          {props.bucketListData.currentBucketTitle} <span className="item-size">{props.items.length}</span><br />
-          {props.items.length < 1 ? 'No Items available' : props.items.length + ' items'}
+          <b>
+            {props.bucketListData.currentBucketTitle}
+          </b>
           {props.bucketListData.currentBucketDescription ?
-            <p>{props.bucketListData.currentBucketDescription}</p> : <p className="description">No description</p> }
+            <p>{props.bucketListData.currentBucketDescription}</p> : <p className="bucket has no description">No description</p> }
+          {props.items.length < 1 ? `${props.items.length} Item(s) available` : <span className='item-size'>{props.items.length} item(s)</span>}
         </span>
         <button
           onClick={props.handleClick({
