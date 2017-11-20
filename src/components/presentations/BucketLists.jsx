@@ -14,7 +14,7 @@ const BucketList = (props) => {
       <Glyphicon
         glyph="pencil"
         className="form-button"
-        onClick={props.handleClick({id: bucket.id, title: bucket.title, description: bucket.id})} />
+        onClick={props.handleClick({id: bucket.id, title: bucket.title, description: bucket.description})} />
     </div>
   ));
 
@@ -22,7 +22,7 @@ const BucketList = (props) => {
     <div className="list-item" key={bucket.id}>
       <a href="#" onClick={props.showItems({ id :bucket.id, title:bucket.title, description:bucket.description})} >{bucket.title}</a>
       <Glyphicon  glyph="trash" className="form-button" onClick={props.handleDeleteClick(bucket.id)} />
-      <Glyphicon  glyph="pencil" className="form-button" onClick={props.handleClick({ id :bucket.id, title:bucket.title})} />
+      <Glyphicon  glyph="pencil" className="form-button" onClick={props.handleClick({ id :bucket.id, title:bucket.title, description: bucket.description})} />
     </div>
   )): <div>It seems you have no bucket matching your search </div> ;
 
