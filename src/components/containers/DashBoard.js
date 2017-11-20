@@ -67,7 +67,7 @@ class DashBoard  extends Component{
       title: this.state.bucketData.title,
       description: this.state.bucketData.description
   }
-    this.props.getBuckets();
+
     this.props.createBucket(newBucket);
     this.setState({
       bucketData: {
@@ -75,6 +75,9 @@ class DashBoard  extends Component{
         description: ''
       }
     })
+    if(this.props.bucketListData.createBucketStatus === 201){
+        this.props.getBuckets();
+    }
     setTimeout(() => {
         if(this.props.bucketListData.createBucketStatus === 201){
           const { bucketCreateMessage } = this.props.bucketListData;
@@ -146,16 +149,29 @@ class DashBoard  extends Component{
     });
     if(data) {
       this.props.selectId(data.id, data.title, data.description)
+      console.log("datata description", data.description)
+      this.setState({
+          editData: {
+              title: data.title,
+              description: data.description
+          }
+      })
     }
   }
 
-  toggleEdit = id => e => {
+  toggleEdit = data => e => {
     e.preventDefault();
     this.setState({
       editModal: !this.state.editModal
     });
-    if(id) {
-      this.props.selectItemId(id)
+    if(data) {
+      this.props.selectItemId(data.id)
+      this.setState({
+          itemEditData: {
+            item: data.item_name,
+            status: false
+          }
+      })
     }
   }
   hideItems = (e) => {
@@ -208,7 +224,7 @@ class DashBoard  extends Component{
     }, 1000)
     this.setState({
       modal: false,
-      itemEditData: {
+      itemData: {
         item: '',
         status: false
       }
