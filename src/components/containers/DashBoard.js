@@ -207,9 +207,12 @@ class DashBoard  extends Component{
         }
     }, 1000)
     this.setState({
-      modal: false
+      modal: false,
+      itemEditData: {
+        item: '',
+        status: false
+      }
     })
-
   }
 
   handleItemEditOnChange = (e) => {
@@ -228,9 +231,17 @@ class DashBoard  extends Component{
       status: false
     }
     this.props.editItem(current_id, current_item_id, itemEditData)
-    const { EditBucketItemsMessage } = this.props.bucketListData;
-    let myColor = {background: 'red', text: '#FFFFFF'}
-    notify.show(EditBucketItemsMessage, 'success', 5000, )
+    setTimeout(() => {
+        const { EditBucketItemsMessage } = this.props.bucketListData;
+        const myColor = {background: 'red', text: '#FFFFFF'}
+        notify.show(EditBucketItemsMessage, 'success', 5000,)
+    })
+    this.setState({
+        itemEditData: {
+          item: '',
+          status: false
+        },
+    })
   }
 
   handleItemDeleteClick = id => (e) => {
