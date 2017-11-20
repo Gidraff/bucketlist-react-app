@@ -10,7 +10,10 @@ const Items = (props) => {
         <div className="item-container" key={item.id}>
           {item.item_name}
           <span className='item-buttons-container'>
-            <Glyphicon glyph="pencil" onClick={props.handleEdit(item.id)}className='item-button' />
+            <Glyphicon
+              glyph="pencil"
+              onClick={props.handleEdit({id: item.id, item_name: item.item_name})}
+              className='item-button' />
             <Glyphicon glyph="trash" onClick={props.handleDeleteClick(item.id)} className='item-button' />
           </span>
         </div>
@@ -23,7 +26,10 @@ const Items = (props) => {
         <div className='item-container' key={item.id}>
           {item.item_name}
           <span className='item-buttons-container'>
-            <Glyphicon glyph="pencil" onClick={props.handleEdit(item.id)}className='item-button' />
+            <Glyphicon
+              glyph="pencil"
+              onClick={props.handleEdit({id: item.id, item_name: item.item_name})}
+              className='item-button' />
             <Glyphicon glyph="trash"  onClick={props.handleDeleteClick(item.id)} className='item-button' />
           </span>
         </div>
