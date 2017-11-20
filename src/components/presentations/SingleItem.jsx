@@ -9,8 +9,9 @@ const SingleItem = (props) => {
           <b>
             {props.bucketListData.currentBucketTitle}
           </b>
+          {console.log('This is a description', props.bucketListData.currentBucketDescription)}
           {props.bucketListData.currentBucketDescription ?
-            <p>{props.bucketListData.currentBucketDescription}</p> : <p className="bucket has no description">No description</p> }
+            <p>{props.bucketListData.currentBucketDescription}</p> : <p>No description</p> }
           {props.items.length < 1 ? `${props.items.length} Item(s) available` : <span className='item-size'>{props.items.length} item(s)</span>}
         </span>
         <button
